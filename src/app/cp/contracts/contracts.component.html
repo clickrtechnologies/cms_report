@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h4 class="mb-3">Contracts - CP</h4>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Artist Name</th>
+          <th>Album Name</th>
+          <th>Song Name</th>
+          <th>Gen/Cat</th>
+          <th>CP Name</th>
+          <th>Licensed Country</th>
+          <th>Licensed MNO</th>
+          <th>From Date</th>
+          <th>To End Date</th>
+          <th>Contract Expiry</th>
+          <th>Upload Contract</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contract of contractList; let i = index">
+          <td>{{ contract.artistName }}</td>
+          <td>{{ contract.albumName }}</td>
+          <td>{{ contract.songName }}</td>
+          <td>{{ contract.genre }}</td>
+          <td>{{ contract.cpName }}</td>
+          <td>{{ contract.licensedCountry }}</td>
+          <td>{{ contract.licensedMNO }}</td>
+          <td>{{ contract.fromDate }}</td>
+          <td>{{ contract.toDate }}</td>
+          <td>{{ contract.expiryDate }}</td>
+          <td>
+            <input type="file" (change)="onFileUpload($event, i)" class="form-control" />
+            <span *ngIf="contract.contractFile" class="text-success small mt-1 d-block">Uploaded</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

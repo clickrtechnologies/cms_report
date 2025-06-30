@@ -1,0 +1,6 @@
+    .dataTables_wrapper {
+        padding-top: 20px;
+    }
+    table.dataTable thead th {
+        white-space: nowrap;
+    }

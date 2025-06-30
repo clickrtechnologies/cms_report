@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h4 class="mb-3">Name RBT</h4>
+
+  <table class="table table-bordered text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>S. No</th>
+        <th>MSISDN</th>
+        <th>Name for Name RBT</th>
+        <th>Audio File (Actions)</th>
+        <th>RBT Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rbt of rbtList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ rbt.msisdn }}</td>
+        <td>{{ rbt.name }}</td>
+        <td>
+          <input type="file" accept="audio/*" class="form-control mb-2" (change)="onAudioUpload($event, i)" />
+          
+          <div *ngIf="rbt.audioUrl">
+            <button class="btn btn-sm btn-primary me-1" (click)="playAudio(i)">Preview</button>
+            <button class="btn btn-sm btn-success me-1" (click)="saveAudio(i)" [disabled]="!rbt.hasPreviewed">Save</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteAudio(i)">Delete</button>
+          </div>
+        </td>
+        <td>{{ rbt.code }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

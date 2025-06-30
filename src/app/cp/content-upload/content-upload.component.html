@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h4>Content Upload - CP</h4>
+
+  <table class="table table-bordered table-hover text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>S.No</th>
+        <th>Artist Name</th>
+        <th>Album Name</th>
+        <th>Song Name</th>
+        <th>Genre/Cat</th>
+        <th>Upload Date</th>
+        <th>CP Name</th>
+        <th>Country</th>
+        <th>MNO</th>
+        <th>Audio File</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let song of uploads; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.artistName" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.albumName" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.songName" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.genre" /></td>
+        <td><input type="date" class="form-control" [(ngModel)]="song.uploadDate" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.cpName" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.country" /></td>
+        <td><input type="text" class="form-control" [(ngModel)]="song.mno" /></td>
+        <td>
+          <input type="file" accept="audio/*" class="form-control" (change)="onFileChange($event, i)" />
+        </td>
+        <td>
+          <button class="btn btn-success me-2" (click)="uploadAudio(i)">Upload</button>
+          <button class="btn btn-primary" (click)="playAudio(i)">Play</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

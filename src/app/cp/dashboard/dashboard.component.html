@@ -1,0 +1,58 @@
+<div class="container-fluid mt-3">
+  <h4 class="mb-4">CP Dashboard</h4>
+
+  <div class="table-scroll-container">
+    <table id="cpTable" class="table table-bordered nowrap">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No.</th>
+          <th>Artist Name</th>
+          <th>Album Name</th>
+          <th>Song Name</th>
+          <th>Song Code</th>
+          <th>QR Code</th>
+          <th>Category</th>
+          <th>Upload Date</th>
+          <th>CP Name</th>
+          <th>From Date</th>
+          <th>To Date</th>
+          <th>Country</th>
+          <th>MNO Name</th>
+          <th>Contract</th>
+          <th>Audio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let song of songs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ song.artistName }}</td>
+          <td>{{ song.albumName }}</td>
+          <td>{{ song.songName }}</td>
+          <td>{{ song.songCode || '-' }}</td>
+          <td>
+            <a *ngIf="song.qrCodeUrl" [href]="song.qrCodeUrl" target="_blank">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?data={{ song.qrCodeUrl }}&size=60x60" alt="QR Code" />
+            </a>
+            <span *ngIf="!song.qrCodeUrl">--</span>
+          </td>
+          <td>{{ song.category }}</td>
+          <td>{{ song.uploadDate }}</td>
+          <td>{{ song.cpName }}</td>
+          <td>{{ song.fromDate }}</td>
+          <td>{{ song.toDate }}</td>
+          <td>{{ song.country }}</td>
+          <td>{{ song.mnoName }}</td>
+          <td>
+            <span *ngIf="song.contractAvailable" class="badge bg-success">Available</span>
+            <span *ngIf="!song.contractAvailable" class="badge bg-secondary">Pending</span>
+          </td>
+          <td>
+            <audio *ngIf="song.audioUrl" [src]="song.audioUrl" controls preload="none" style="width: 120px;"></audio>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

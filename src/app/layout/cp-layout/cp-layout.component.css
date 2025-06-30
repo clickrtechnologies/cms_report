@@ -1,0 +1,53 @@
+.sidebar {
+  position: fixed;
+  top: 60px; /* Adjust if your header is taller */
+  bottom: 100px;
+  left: 10px;
+  width: 230px;
+
+  background-color: #1f2a40;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  color: white;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-left: 250px; /* 230 (sidebar width) + 10 + 10 spacing */
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: #0d6efd;
+  color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  .sidebar {
+    display: none !important;
+  }
+}
+
+.nav-link {
+  color: white;
+  padding: 10px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+}

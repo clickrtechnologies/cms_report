@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">CMS RBT Portal</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar"
+      aria-controls="cmsNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="cmsNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item" *ngIf="role === 'admin'">
+          <a class="nav-link" routerLink="/admin/dashboard">Admin Dashboard</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role === 'cp'">
+          <a class="nav-link" routerLink="/cp/dashboard">CP Dashboard</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role === 'artist'">
+          <a class="nav-link" routerLink="/artist/dashboard">Artist Dashboard</a>
+        </li>
+
+        <li class="nav-item" *ngIf="role === 'mno'">
+          <a class="nav-link" routerLink="/mno/dashboard">MNO Dashboard</a>
+        </li>
+
+        <!-- Shared Links -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/reports">Reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contracts">Contracts</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{ username }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
