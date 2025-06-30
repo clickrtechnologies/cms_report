@@ -1,3 +1,5 @@
 .bg-dark {
     background-color: #1f2a40 !important;
+    width: 100%;
+    position: fixed;
 }

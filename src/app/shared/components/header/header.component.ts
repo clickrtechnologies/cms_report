@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  role: string = '';
-  username: string = '';
+  role: string = 'cp';
+  username: string = 'cp_user';
 
   constructor(private router: Router) {}
 

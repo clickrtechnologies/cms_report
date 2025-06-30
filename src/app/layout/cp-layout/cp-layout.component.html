@@ -1,51 +1,43 @@
 <div class="d-flex flex-column min-vh-100">
-
-  <!-- Header -->
   <app-header></app-header>
 
-  <!-- Responsive layout -->
-  <div class="d-flex flex-grow-1">
+  <div class="d-flex flex-grow-1 overflow-hidden">
+    <!-- Sidebar -->
+    <nav class="sidebar d-none d-md-block">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a routerLink="/cp/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cp/content-upload" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-cloud-upload me-2"></i> Content Upload
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cp/name-rbt" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-music-note-list me-2"></i> Name RBT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cp/reports" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-graph-up-arrow me-2"></i> Reports
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cp/contracts" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-file-earmark-text me-2"></i> Contracts
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-    <!-- Sidebar (hidden on small screens) -->
-<nav class="sidebar d-none d-md-block">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a routerLink="/cp/dashboard" routerLinkActive="active" class="nav-link">
-        <i class="bi bi-speedometer2 me-2"></i> Dashboard
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/cp/content-upload" routerLinkActive="active" class="nav-link">
-        <i class="bi bi-cloud-upload me-2"></i> Content Upload
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/cp/name-rbt" routerLinkActive="active" class="nav-link">
-        <i class="bi bi-music-note-list me-2"></i> Name RBT
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/cp/reports" routerLinkActive="active" class="nav-link">
-        <i class="bi bi-graph-up-arrow me-2"></i> Reports
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/cp/contracts" routerLinkActive="active" class="nav-link">
-        <i class="bi bi-file-earmark-text me-2"></i> Contracts
-      </a>
-    </li>
-  </ul>
-</nav>
-
-
-    <!-- Main content (left margin matches sidebar width + margin) -->
+    <!-- Main content -->
     <main class="main-content flex-grow-1">
       <router-outlet></router-outlet>
     </main>
-
   </div>
 
-  <!-- Footer -->
   <app-footer></app-footer>
-
 </div>
