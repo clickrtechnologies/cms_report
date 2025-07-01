@@ -8,20 +8,17 @@
     </button>
 
     <div class="collapse navbar-collapse" id="cmsNavbar">
+      <!-- Left Navigation -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
         <li class="nav-item" *ngIf="role === 'admin'">
           <a class="nav-link" routerLink="/admin/dashboard">Admin Dashboard</a>
         </li>
-
         <li class="nav-item" *ngIf="role === 'cp'">
           <a class="nav-link" routerLink="/cp/dashboard">CP Dashboard</a>
         </li>
-
         <li class="nav-item" *ngIf="role === 'artist'">
           <a class="nav-link" routerLink="/artist/dashboard">Artist Dashboard</a>
         </li>
-
         <li class="nav-item" *ngIf="role === 'mno'">
           <a class="nav-link" routerLink="/mno/dashboard">MNO Dashboard</a>
         </li>
@@ -35,13 +32,28 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav mb-2 mb-lg-0">
+      <!-- Right Icons -->
+      <ul class="navbar-nav align-items-center">
+        <!-- Notification Icon -->
+        <li class="nav-item me-3 position-relative">
+          <a class="nav-link position-relative" href="#">
+            <i class="bi bi-bell fs-5"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              1
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- User Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             {{ username }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Setting</a></li>
             <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
         </li>
@@ -49,4 +61,3 @@
     </div>
   </div>
 </nav>
-

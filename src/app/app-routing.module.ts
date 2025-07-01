@@ -12,8 +12,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**',
-    redirectTo: '/cp/dashboard'
+    path : 'artist',
+    loadChildren: () =>import('./artist/artist.module').then(m=>m.ArtistModule)
+  },
+  {
+    path : 'mno',
+    loadChildren: () =>import('./mno/mno.module').then(m=>m.MnoModule)
+  },
+  {
+    path : 'admin',
+    loadChildren: () =>import('./admin/admin.module').then(m=>m.AdminModule)
   }
 
 ];

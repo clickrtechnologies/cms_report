@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: CpLayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'cp', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'content-upload', component: ContentUploadComponent },
       { path: 'name-rbt', component: NameRbtComponent },

@@ -3,3 +3,7 @@
     width: 100%;
     position: fixed;
 }
+
+span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger {
+    margin-top: 12px;
+}

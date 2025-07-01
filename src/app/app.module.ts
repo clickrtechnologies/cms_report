@@ -8,20 +8,32 @@ import { CpLayoutComponent } from './layout/cp-layout/cp-layout.component';
 import { FormsModule } from '@angular/forms';
 import { CpRoutingModule } from './cp/cp-routing.module';
 import { CommonModule } from '@angular/common';
+import { MnoLayoutComponent } from './layout/mno-layout/mno-layout.component';
+import { ArtistLayoutComponent } from './layout/artist-layout/artist-layout.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { ArtistRoutingModule } from './artist/artist-routing.module';
+import { AdminRoutingModule } from './admin/admin-routing.module';
+import { MnoRoutingModule } from './mno/mno-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CpLayoutComponent
+    CpLayoutComponent,
+    MnoLayoutComponent,
+    ArtistLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    CpRoutingModule
+    CpRoutingModule,
+    ArtistRoutingModule,
+    AdminRoutingModule,
+    MnoRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
