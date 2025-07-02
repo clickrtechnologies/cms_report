@@ -13,7 +13,7 @@
         <div class="accordion-body ps-4">
           <ul class="list-unstyled">
             <li *ngFor="let month of item.months">
-              <a href="#" (click)="selectMonth(month)" [class.text-primary]="selectedMonth === month">{{ month }}</a>
+              <a (click)="selectMonth(month)" [class.text-primary]="selectedMonth === month">{{ month }}</a>
             </li>
           </ul>
         </div>

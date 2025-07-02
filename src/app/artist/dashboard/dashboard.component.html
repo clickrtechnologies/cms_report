@@ -1,1 +1,45 @@
-<p>dashboard works!</p>
+<div class="container-fluid mt-4">
+  <h4 class="mb-3">Dashboard - Artist</h4>
+
+<div class="table-responsive" style="overflow-x: auto;">
+  <table id="artistDashboard" class="table table-bordered table-striped nowrap w-100">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No.</th>
+          <th>Artist Name</th>
+          <th>Album Name</th>
+          <th>Song Name</th>
+          <th>Song Code</th>
+          <th>Genre</th>
+          <th>Date of Upload</th>
+          <th>CP Name</th>
+          <th>From Date</th>
+          <th>To Date</th>
+          <th>Licensed Country</th>
+          <th>Licensed MNO</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let song of songs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ song.artistName }}</td>
+          <td>{{ song.albumName }}</td>
+          <td>{{ song.songName }}</td>
+          <td>{{ song.songCode }}</td>
+          <td>{{ song.genre }}</td>
+          <td>{{ song.uploadDate }}</td>
+          <td>{{ song.cpName }}</td>
+          <td>{{ song.fromDate }}</td>
+          <td>{{ song.toDate }}</td>
+          <td>{{ song.licensedCountry }}</td>
+          <td>{{ song.licensedMno }}</td>
+          <td>
+            <span class="badge bg-success" *ngIf="song.approved">Approved</span>
+            <span class="badge bg-secondary" *ngIf="!song.approved">Pending</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

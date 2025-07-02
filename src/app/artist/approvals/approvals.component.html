@@ -1,1 +1,60 @@
-<p>approvals works!</p>
+<div class="container mt-4">
+  <h4 class="mb-3">Artist Approvals</h4>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Song</th>
+          <th>Audio</th>
+          <th>Gen/Cat</th>
+          <th>Upload Date</th>
+          <th>CP</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Country</th>
+          <th>MNO</th>
+          <th>Song Code</th>
+          <th>QR</th>
+          <th>Approved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let song of approvals; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ song.artist }}</td>
+          <td>{{ song.album }}</td>
+          <td>{{ song.songName }}</td>
+          <td>
+            <audio [src]="song.songFile" controls preload="none" style="width: 120px;"></audio>
+          </td>
+          <td>{{ song.genre }}</td>
+          <td>{{ song.uploadDate }}</td>
+          <td>{{ song.cp }}</td>
+          <td>{{ song.fromDate }}</td>
+          <td>{{ song.toDate }}</td>
+          <td>{{ song.country }}</td>
+          <td>{{ song.mno }}</td>
+          <td>{{ song.songCode || '--' }}</td>
+          <td>
+            <a *ngIf="song.qrUrl" [href]="song.qrUrl" target="_blank">
+              <img [src]="song.qrUrl" alt="QR" width="50">
+            </a>
+          </td>
+          <td>
+            <ng-container *ngIf="song.approved === null">
+              <button class="btn btn-sm btn-success me-1" (click)="approveSong(song)">Approve</button>
+              <button class="btn btn-sm btn-danger" (click)="rejectSong(song)">Reject</button>
+            </ng-container>
+            <span *ngIf="song.approved === true" class="badge bg-success">Approved</span>
+            <span *ngIf="song.approved === false" class="badge bg-danger">Rejected</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

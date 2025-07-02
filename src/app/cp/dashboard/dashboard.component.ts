@@ -52,9 +52,9 @@ export class DashboardComponent {
           dom: 'Bfrtip',
           paging: true,
           searching: true,
-          scroll : true,
-          responsive: false,                        
-          scrollCollapse: true,
+          ordering: true,
+          scrollX: true,
+          pageLength: 10, 
           buttons: ['excelHtml5', 'csvHtml5','copy', 'print'] 
           //buttons: ['excelHtml5', 'csvHtml5','copy', 'csv', 'excel', 'print']
         });

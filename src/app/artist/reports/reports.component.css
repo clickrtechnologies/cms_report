@@ -1,0 +1,16 @@
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.accordion-button {
+  background-color: #f0f2f5;
+}
+
+.table th, .table td {
+  vertical-align: middle !important;
+}

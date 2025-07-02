@@ -1,1 +1,66 @@
-<p>approvals works!</p>
+<div class="container-fluid mt-4">
+  <h4 class="mb-3">MNO Approval List</h4>
+
+  <div class="table-responsive" style="overflow-x: auto;">
+    <table class="table table-bordered table-striped align-middle text-center w-100" id="approvalTable" style="min-width: 1300px;">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No.</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Song</th>
+          <th>Code</th>
+          <th>QR</th>
+          <th>Genre</th>
+          <th>CP</th>
+          <th>Country</th>
+          <th>MNO</th>
+          <th>Contract</th>
+          <th>Expiry</th>
+          <th>Audio</th>
+          <th colspan="2">Approve</th>
+          <th>Rejection Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of approvalList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.artistName }}</td>
+          <td>{{ item.albumName }}</td>
+          <td>{{ item.songName }}</td>
+          <td>{{ item.songCode }}</td>
+          <td>
+            <a [href]="item.qrCodeUrl" target="_blank">
+              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + item.qrCodeUrl + '&size=60x60'" alt="QR Code" />
+            </a>
+          </td>
+          <td>{{ item.genre }}</td>
+          <td>{{ item.cpName }}</td>
+          <td>{{ item.country }}</td>
+          <td>{{ item.mno }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary" (click)="downloadContract(item.contractFile)">Download</button>
+          </td>
+          <td>{{ item.expiryDate }}</td>
+          <td>
+            <audio *ngIf="item.audioUrl" [src]="item.audioUrl" controls preload="none" style="width: 100px;"></audio>
+          </td>
+          <td>
+            <input type="radio" [checked]="item.approved" name="approve{{i}}" />
+          </td>
+          <td>
+            <input type="radio" [checked]="!item.approved" name="approve{{i}}" />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              [disabled]="item.approved"
+              [(ngModel)]="item.rejectionReason"
+              placeholder="Reason if rejected" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

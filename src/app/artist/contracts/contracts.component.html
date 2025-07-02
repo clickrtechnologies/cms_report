@@ -1,1 +1,50 @@
-<p>contracts works!</p>
+<div class="container-fluid mt-4">
+  <h4 class="mb-3">Contracts</h4>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>S.No.</th>
+          <th>Date</th>
+          <th>Artist Name</th>
+          <th>Album Name</th>
+          <th>Song Name</th>
+          <th>Gen/Cat</th>
+          <th colspan="2">Signed Contract Validity</th>
+          <th>CP Name</th>
+          <th>Action (Download/Upload)</th>
+        </tr>
+        <tr>
+          <th colspan="6"></th>
+          <th>From</th>
+          <th>To</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contract of contractList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ contract.date }}</td>
+          <td>{{ contract.artistName }}</td>
+          <td>{{ contract.albumName }}</td>
+          <td>{{ contract.songName }}</td>
+          <td>{{ contract.genre }}</td>
+          <td>{{ contract.fromDate }}</td>
+          <td>{{ contract.toDate }}</td>
+          <td>{{ contract.cpName }}</td>
+          <td>
+            <div *ngIf="contract.contractFile; else uploadBlock">
+              <button class="btn btn-sm btn-primary" (click)="downloadContract(i)">
+                Download
+              </button>
+            </div>
+            <ng-template #uploadBlock>
+              <input type="file" (change)="onFileUpload($event, i)" />
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

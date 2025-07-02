@@ -1,1 +1,59 @@
-<p>name-rbt works!</p>
+<div class="name-rbt-table-container">
+  <h3>Name RBT Table</h3>
+  <table id="nameRbtTable" class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>SNO</th>
+        <th>MSSISDN</th>
+        <th>Name sent by user through SMS</th>
+        <th>Name RBT code</th>
+        <th>Audio Upload</th>
+        <th>Preview</th>
+        <th>Delete</th>
+        <th>Save</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rbt of rbtList; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{rbt.msisdn}}</td>
+        <td>{{rbt.name}}</td>
+        <td>{{rbt.code}}</td>
+        <td>
+          <input type="file" accept="audio/*" (change)="onAudioUpload($event, i)" class="form-control form-control-sm" />
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary" [disabled]="!rbt.audioUrl" (click)="playAudio(i)">Play</button>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger" [disabled]="!rbt.audioUrl" (click)="deleteAudio(i)">Delete</button>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-success" [disabled]="!rbt.hasPreviewed" (click)="saveAudio(i)">Save</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note mt-2">
+    System shall generate Name RBT code once the audio file is recorded and uploaded and sync up into the Cp Login
+  </div>
+</div>
+
+<!-- DataTables JS initialization -->
+<script>
+(function() {
+  setTimeout(function() {
+    if (window['$'] && $('#nameRbtTable').DataTable) {
+      $('#nameRbtTable').DataTable({
+        responsive: true,
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+        lengthMenu: [5, 10, 25, 50, 100]
+      });
+    }
+  }, 500);
+})();
+</script>

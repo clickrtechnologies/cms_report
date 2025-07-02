@@ -1,1 +1,63 @@
-<p>reports works!</p>
+<div class="container mt-4">
+  <h4 class="mb-3">Reports - Artist</h4>
+
+  <!-- Geo + Month accordion -->
+  <div class="accordion" id="geoAccordion">
+    <div *ngFor="let item of geoList; let i = index" class="accordion-item mb-2">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" (click)="selectGeo(item.geo + '-' + item.mno)">
+          {{ i + 1 }}. <strong class="ms-2">{{ item.geo }}</strong> - {{ item.mno }}
+        </button>
+      </h2>
+      <div class="accordion-collapse collapse" [class.show]="selectedGeo === (item.geo + '-' + item.mno)">
+        <div class="accordion-body ps-4">
+          <ul class="list-unstyled">
+            <li *ngFor="let month of item.months">
+              <a  (click)="selectMonth(month)" [class.text-primary]="selectedMonth === month">{{ month }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Table -->
+  <div *ngIf="selectedMonth" class="mt-4">
+    <h5>Report for: {{ selectedGeo }} → {{ selectedMonth }}</h5>
+
+    <div class="table-responsive mt-3">
+      <table class="table table-bordered table-striped table-hover align-middle text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Sno.</th>
+            <th>Date</th>
+            <th>Artist Name</th>
+            <th>Album Name</th>
+            <th>Song Name</th>
+            <th>Gen/Cat</th>
+            <th>No. of Downloads</th>
+            <th>Download Modes</th>
+            <th>CP Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of reportsData; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ row.date }}</td>
+            <td>{{ row.artist }}</td>
+            <td>{{ row.album }}</td>
+            <td>{{ row.song }}</td>
+            <td>{{ row.genre }}</td>
+            <td>{{ row.downloads }}</td>
+            <td>
+              Copy: {{ row.modes.copy }}<br />
+              IVR: {{ row.modes.ivr }}<br />
+              APP: {{ row.modes.app }}
+            </td>
+            <td>{{ row.cp }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

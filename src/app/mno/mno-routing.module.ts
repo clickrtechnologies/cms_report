@@ -10,13 +10,12 @@ const routes: Routes = [
     path: '',
     component : MnoLayoutComponent,
     children: [
-
-      {path : "mno", redirectTo: 'dashboard', pathMatch: 'full'},
-      {path : "dashboard", component : DashboardComponent},
-      {path : "reports" , component : ReportsComponent},
-      {path : "approvals", component : ApprovalsComponent},
+      {path : 'mno', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path : 'dashboard', component : DashboardComponent},
+      {path : 'reports' , component : ReportsComponent},
+      {path : 'approvals', component : ApprovalsComponent}
     ]
-  }
+  } 
 ];
 
 @NgModule({

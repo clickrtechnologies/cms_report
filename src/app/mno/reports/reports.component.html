@@ -1,1 +1,78 @@
-<p>reports works!</p>
+<div class="reports-dashboard">
+  <aside class="sidebar">
+    <h3>GeoName-MNO</h3>
+    <ul class="geo-list">
+      <li *ngFor="let geo of geoMnoList">
+        <span (click)="toggleGeo(geo)" [class.active]="geo === selectedGeo">{{geo.name}}</span>
+        <ul *ngIf="geo === selectedGeo">
+          <li *ngFor="let month of geo.months">
+            <span (click)="selectMonth(geo, month)" [class.selected]="month === selectedMonth">{{month}}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+  <main class="main-content">
+    <div class="header">
+      <h2 *ngIf="selectedGeo && selectedMonth">
+        {{selectedGeo.name}} - {{selectedMonth}}
+      </h2>
+      <div class="actions">
+        <div class="file-upload">
+          <input type="file" (change)="onFileSelected($event)" accept=".csv,.xlsx" id="fileUpload" class="file-input">
+          <label for="fileUpload" class="upload-btn">Upload Report</label>
+        </div>
+        <button class="export-btn" (click)="exportToExcel()">Export to Excel</button>
+        <button class="generate-btn" (click)="generateReport()">Generate Report</button>
+      </div>
+    </div>
+    <div *ngIf="selectedGeo && selectedMonth" class="table-container">
+      <div class="table-note">
+        * If for current month Reports are to be shown from 1st of month to till date
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Sno.</th>
+            <th>Date</th>
+            <th>Artist Name</th>
+            <th>Album Name</th>
+            <th>Song Name</th>
+            <th>Gen/Cat</th>
+            <th>No. of downloads by the user</th>
+            <th colspan="3">Mode of content download by the user</th>
+            <th>CP Name</th>
+          </tr>
+          <tr>
+            <th colspan="7"></th>
+            <th>Copy</th>
+            <th>IVR</th>
+            <th>APP</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of reportData">
+            <td>{{row.sno}}</td>
+            <td>{{row.date}}</td>
+            <td>{{row.artistName}}</td>
+            <td>{{row.albumName}}</td>
+            <td>{{row.songName}}</td>
+            <td>{{row.genCat}}</td>
+            <td>{{row.downloads}}</td>
+            <td><input type="checkbox" [checked]="row.modes.copy" disabled></td>
+            <td><input type="checkbox" [checked]="row.modes.ivr" disabled></td>
+            <td><input type="checkbox" [checked]="row.modes.app" disabled></td>
+            <td>{{row.cpName}}</td>
+          </tr>
+          <tr *ngIf="reportData.length === 0">
+            <td colspan="11" class="no-data">No data available. Please upload a report.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="!selectedGeo || !selectedMonth" class="select-note">
+      <p>Please select a GeoName-MNO and Month-Year to view the report.</p>
+    </div>
+  </main>
+</div>
