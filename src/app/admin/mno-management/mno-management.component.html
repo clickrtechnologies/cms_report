@@ -1,1 +1,28 @@
-<p>mno-management works!</p>
+  <!-- MNO Login -->
+  <h5>➤ MNO Login</h5>
+  <div class="table-responsive mb-5">
+    <table class="table table-bordered table-striped text-center w-100" id="mnoTable">
+      <thead class="table-dark">
+        <tr>
+          <th>SNO</th>
+          <th>Telco Name</th>
+          <th>Personnel Name</th>
+          <th>Personnel Email</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action Login</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mno of mnoLogins; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ mno.telco }}</td>
+          <td>{{ mno.name }}</td>
+          <td>{{ mno.email }}</td>
+          <td>{{ mno.username }}</td>
+          <td>{{ mno.password }}</td>
+          <td><button class="btn btn-sm btn-primary">Login</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

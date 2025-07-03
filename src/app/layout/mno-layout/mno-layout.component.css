@@ -16,7 +16,7 @@
 }
 
 .main-content {
-  margin-left: 250px;
+  margin-left: 260px;
   padding: 20px;
   min-width: 0;              
   overflow-x: auto;         
@@ -55,3 +55,4 @@
 .nav-link i {
   font-size: 1.1rem;
 }
+

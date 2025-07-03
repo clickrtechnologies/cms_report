@@ -1,56 +1,58 @@
-<div class="admin-report-table-container">
-  <h3>Admin Report Table</h3>
-<div class="table-scroll-container">
-  <table id="adminTable" class="table table-bordered table-striped table-hover nowrap">
-    <thead>
-      <tr>
-        <th>Sno.</th>
-        <th>Artist Name</th>
-        <th>Album Name</th>
-        <th>Song Name</th>
-        <th>Song code</th>
-        <th>QR code</th>
-        <th>Genre</th>
-        <th>CP Name</th>
-        <th>Licensed to country name</th>
-        <th>Licensed to MNO Name</th>
-        <th>Artist with contract<br><small>uploaded contract - action button to download in pdf</small></th>
-        <th>Contract Expiry date<br><small>to be picked from the CP updation</small></th>
-        <th>Uploaded song audio file<br><small>play button</small></th>
-        <th colspan="2">Approval by artist</th>
-        <th colspan="2">Approval by MNO</th>
-      </tr>
-      <tr>
-        <th colspan="13"></th>
-        <th>Yes</th>
-        <th>No</th>
-        <th>Yes</th>
-        <th>No</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of rows">
-        <td>{{row.sno}}</td>
-        <td>{{row.artistName}}</td>
-        <td>{{row.albumName}}</td>
-        <td>{{row.songName}}</td>
-        <td>{{row.songCode}}</td>
-        <td>{{row.qrCode}}</td>
-        <td>{{row.genre}}</td>
-        <td>{{row.cpName}}</td>
-        <td>{{row.licensedCountry}}</td>
-        <td>{{row.licensedMno}}</td>
-        <td><a href="#" download>{{row.contractPdf}}</a></td>
-        <td>{{row.contractExpiry}}</td>
-        <td><button class="btn btn-sm btn-primary">Play</button></td>
-        <td><input type="radio" [checked]="row.approvalArtist" disabled></td>
-        <td><input type="radio" [checked]="!row.approvalArtist" disabled></td>
-        <td><input type="radio" [checked]="row.approvalMno" disabled></td>
-        <td><input type="radio" [checked]="!row.approvalMno" disabled></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid mt-3">
+  <h3>Admin Dashboard</h3>
+  <div class="table-scroll-container">
+    <table id="adminDashboard" class="table table-bordered table-striped nowrap">
+      <thead class="table-dark">
+        <tr>
+          <th>Sno.</th>
+          <th>Artist Name</th>
+          <th>Album Name</th>
+          <th>Song Name</th>
+          <th>Song code</th>
+          <th>QR code</th>
+          <th>Genre</th>
+          <th>CP Name</th>
+          <th>Licensed to Country</th>
+          <th>Licensed to MNO</th>
+          <th>Contract PDF<br><small>(Download)</small></th>
+          <th>Contract Expiry<br><small>(from CP)</small></th>
+          <th>Audio File<br><small>(Play)</small></th>
+          <th colspan="2">Artist Approval</th>
+          <th colspan="2">MNO Approval</th>
+        </tr>
+        <tr>
+          <th colspan="13"></th>
+          <th>Yes</th>
+          <th>No</th>
+          <th>Yes</th>
+          <th>No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td>{{ row.sno }}</td>
+          <td>{{ row.artistName }}</td>
+          <td>{{ row.albumName }}</td>
+          <td>{{ row.songName }}</td>
+          <td>{{ row.songCode }}</td>
+          <td>{{ row.qrCode }}</td>
+          <td>{{ row.genre }}</td>
+          <td>{{ row.cpName }}</td>
+          <td>{{ row.licensedCountry }}</td>
+          <td>{{ row.licensedMno }}</td>
+          <td>
+            <a [href]="row.contractPdf" download class="btn btn-sm btn-outline-primary">Download</a>
+          </td>
+          <td>{{ row.contractExpiry }}</td>
+          <td>
+            <audio *ngIf="row.audioFile" [src]="row.audioFile" controls preload="none" style="width: 120px;"></audio>
+          </td>
+          <td><input type="radio" [checked]="row.approvalArtist" disabled /></td>
+          <td><input type="radio" [checked]="!row.approvalArtist" disabled /></td>
+          <td><input type="radio" [checked]="row.approvalMno" disabled /></td>
+          <td><input type="radio" [checked]="!row.approvalMno" disabled /></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-

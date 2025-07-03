@@ -56,3 +56,21 @@
 .nav-link i {
   font-size: 1.1rem;
 }
+
+/* Submenu hidden by default */
+.has-submenu .submenu {
+  display: none;
+  padding-left: 10px;
+  list-style: none; /* 🔹 Removes bullet points */
+  margin: 0;
+}
+
+/* Show submenu on hover */
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+/* Optional: indent submenu items */
+.submenu .nav-link {
+  padding-left: 30px;
+}

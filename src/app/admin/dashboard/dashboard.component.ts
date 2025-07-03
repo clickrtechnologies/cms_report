@@ -1,5 +1,4 @@
 import { AfterViewInit, Component } from '@angular/core';
-
 declare var $: any;
 
 interface AdminReportRow {
@@ -25,7 +24,7 @@ interface AdminReportRow {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
   rows: AdminReportRow[] = [
     {
       sno: 1,
@@ -38,9 +37,9 @@ export class DashboardComponent {
       cpName: 'CP Alpha',
       licensedCountry: 'Country 1',
       licensedMno: 'MNO 1',
-      contractPdf: 'contract1.pdf',
+      contractPdf: 'assets/contracts/contract1.pdf',
       contractExpiry: '2025-12-31',
-      audioFile: 'audio1.mp3',
+      audioFile: 'assets/audio/audio1.mp3',
       approvalArtist: true,
       approvalMno: false
     },
@@ -55,29 +54,25 @@ export class DashboardComponent {
       cpName: 'CP Beta',
       licensedCountry: 'Country 2',
       licensedMno: 'MNO 2',
-      contractPdf: 'contract2.pdf',
+      contractPdf: 'assets/contracts/contract2.pdf',
       contractExpiry: '2026-01-15',
-      audioFile: 'audio2.mp3',
+      audioFile: 'assets/audio/audio2.mp3',
       approvalArtist: false,
       approvalMno: true
     }
   ];
+
   ngAfterViewInit(): void {
-    // Wait for the DOM and jQuery to load
-    const waitForjQuery = setInterval(() => {
-      if (typeof $ !== 'undefined' && $('#adminTable').length) {
-        $('#cpTable').DataTable({
-          dom: 'Bfrtip',
-          paging: true,
-          searching: true,
-          ordering: true,
-          scrollX: true,
-          pageLength: 10, 
-          buttons: ['excelHtml5', 'csvHtml5','copy', 'print'] 
-        });
-        clearInterval(waitForjQuery);
-      }
+    setTimeout(() => {
+      $('#adminDashboard').DataTable({
+        dom: 'Bfrtip',
+        paging: true,
+        searching: true,
+        ordering: true,
+        scrollX: true,
+        pageLength: 10,
+        buttons: ['excelHtml5', 'csvHtml5', 'copy', 'print']
+      });
     }, 0);
   }
-
 }

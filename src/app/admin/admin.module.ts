@@ -6,9 +6,8 @@ import { ArtistManagementComponent } from './artist-management/artist-management
 import { CpManagementComponent } from './cp-management/cp-management.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MnoManagementComponent } from './mno-management/mno-management.component';
+import { UserComponent } from './user/user.component';
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
-import { ReportsComponent } from './reports/reports.component';
-
 
 @NgModule({
   declarations: [
@@ -16,8 +15,8 @@ import { ReportsComponent } from './reports/reports.component';
     CpManagementComponent,
     DashboardComponent,
     MnoManagementComponent,
-    NameRbtComponent,
-    ReportsComponent
+    UserComponent,
+    NameRbtComponent
   ],
   imports: [
     CommonModule,

@@ -1,44 +1,19 @@
 import { Component } from '@angular/core';
 
-interface NameRbtRow {
-  msisdn: string;
-  name: string;
-  code: string;
-  audioFile: File | null;
-  audioUrl: string;
-  hasPreviewed: boolean;
-}
-
 @Component({
   selector: 'app-name-rbt',
   templateUrl: './name-rbt.component.html',
   styleUrls: ['./name-rbt.component.css']
 })
 export class NameRbtComponent {
-  rbtList: NameRbtRow[] = [
+  rbtList = [
     {
       msisdn: '9876543210',
       name: 'Welcome Tune',
-      code: 'RBT1234',
-      audioFile: null,
+      audioFile: null as File | null,
       audioUrl: '',
-      hasPreviewed: false
-    },
-    {
-      msisdn: '9123456789',
-      name: 'Morning Alarm',
-      code: 'RBT5678',
-      audioFile: null,
-      audioUrl: '',
-      hasPreviewed: false
-    },
-    {
-      msisdn: '9988776655',
-      name: 'Birthday Song',
-      code: 'RBT9012',
-      audioFile: null,
-      audioUrl: '',
-      hasPreviewed: false
+      hasPreviewed: false,
+      code: 'RBT1234'
     }
   ];
 

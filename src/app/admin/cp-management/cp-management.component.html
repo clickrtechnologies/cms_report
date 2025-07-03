@@ -1,1 +1,25 @@
-<p>cp-management works!</p>
+  <h5>➤ CP Login</h5>
+  <div class="table-responsive mb-5">
+    <table class="table table-bordered table-striped text-center w-100" id="cpTable">
+      <thead class="table-dark">
+        <tr>
+          <th>SNO</th>
+          <th>CP Name</th>
+          <th>CP Email</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action Login</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cp of cpLogins; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ cp.name }}</td>
+          <td>{{ cp.email }}</td>
+          <td>{{ cp.username }}</td>
+          <td>{{ cp.password }}</td>
+          <td><button class="btn btn-sm btn-primary">Login</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

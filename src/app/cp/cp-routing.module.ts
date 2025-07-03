@@ -6,6 +6,7 @@ import { ContentUploadComponent } from './content-upload/content-upload.componen
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
+import { AdminLayoutComponent } from '../layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,13 @@ const routes: Routes = [
       { path: 'name-rbt', component: NameRbtComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'contracts', component: ContractsComponent }
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent, 
+    children: [
+      { path: 'cp-reports', component: ReportsComponent }
     ]
   }
 ];

@@ -1,1 +1,28 @@
-<p>artist-management works!</p>
+  <!-- Artist Login -->
+  <h5>➤ Artist Login</h5>
+  <div class="table-responsive mb-5">
+    <table class="table table-bordered table-striped text-center w-100" id="artistTable">
+      <thead class="table-dark">
+        <tr>
+          <th>SNO</th>
+          <th>CP Name</th>
+          <th>Artist Name</th>
+          <th>Artist Email</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Action Login</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let artist of artistLogins; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ artist.cpName }}</td>
+          <td>{{ artist.name }}</td>
+          <td>{{ artist.email }}</td>
+          <td>{{ artist.username }}</td>
+          <td>{{ artist.password }}</td>
+          <td><button class="btn btn-sm btn-primary">Login</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
