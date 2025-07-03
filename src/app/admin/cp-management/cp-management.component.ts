@@ -14,7 +14,16 @@ export class CpManagementComponent {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      $('#cpTable').DataTable({ pageLength: 5, scrollX: true });
+      $('#cpTable').DataTable({
+       dom: 'Bfrtip',
+        paging: true,
+        searching: true,
+        ordering: true,
+        scrollX: true,
+        pageLength: 10,
+        buttons: ['excelHtml5', 'csvHtml5', 'copy', 'print']
+
+      });
     }, 100);
   }
 }

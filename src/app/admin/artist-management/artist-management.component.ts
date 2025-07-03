@@ -15,7 +15,16 @@ export class ArtistManagementComponent {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      $('#artistTable').DataTable({ pageLength: 5, scrollX: true });
+      $('#artistTable').DataTable({ 
+       dom: 'Bfrtip',
+        paging: true,
+        searching: true,
+        ordering: true,
+        scrollX: true,
+        pageLength: 10,
+        buttons: ['excelHtml5', 'csvHtml5', 'copy', 'print']
+      
+      });
 
     }, 100);
   }
