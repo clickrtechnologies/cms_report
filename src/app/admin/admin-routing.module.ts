@@ -14,7 +14,7 @@ const routes: Routes = [
     path: '',
     component : AdminLayoutComponent,
     children: [
-      {path: 'admin', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path : '', redirectTo: 'dashboard', pathMatch: 'full'},
       {path : 'dashboard', component : DashboardComponent},
       {path : 'artist-management', component : ArtistManagementComponent},
       {path : 'cp-management', component : CpManagementComponent},

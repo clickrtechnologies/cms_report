@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: ArtistLayoutComponent,
     children : [
-      {path : 'artist', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path : '',redirectTo: 'dashboard', pathMatch: 'full'},
       {path : 'dashboard', component:DashboardComponent},
       {path : 'approvals', component : ApprovalsComponent},
       {path : 'reports', component : ReportsComponent},

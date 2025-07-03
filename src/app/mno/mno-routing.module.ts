@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component : MnoLayoutComponent,
     children: [
-      {path : 'mno', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path : '', redirectTo: 'dashboard', pathMatch: 'full'},
       {path : 'dashboard', component : DashboardComponent},
       {path : 'reports' , component : ReportsComponent},
       {path : 'approvals', component : ApprovalsComponent}
