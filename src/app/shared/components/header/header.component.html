@@ -47,7 +47,7 @@
           </span>
         </button>
         <!-- Notification List -->
-        <div *ngIf="showNotifications" class="position-absolute bg-white text-dark border rounded shadow p-3 mt-2" style="right: 60px; width: 250px; z-index: 1000;">
+        <div *ngIf="showNotifications" class="position-absolute bg-white text-dark border rounded shadow p-3 mt-2" style="right: -13px;width: 250px;z-index: 1000;">
           <div *ngIf="notifications.length === 0" class="text-muted small">No new notifications</div>
           <ul class="list-unstyled mb-0">
             <li *ngFor="let note of notifications" class="small border-bottom py-1">{{ note }}</li>

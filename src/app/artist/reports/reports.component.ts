@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-reports',
@@ -52,5 +54,23 @@ export class ReportsComponent {
 
   selectMonth(month: string) {
     this.selectedMonth = month;
+  }
+
+  ngAfterViewInit(): void {
+    // Wait for the DOM and jQuery to load
+    const waitForjQuery = setInterval(() => {
+      if (typeof $ !== 'undefined' && $('#admin-artist-report').length) {
+        $('#admin-artist-report').DataTable({
+          dom: 'Bfrtip',
+          paging: true,
+          searching: true,
+          ordering: true,
+          scrollX: true,
+          pageLength: 10, 
+          buttons: ['excelHtml5', 'csvHtml5','copy', 'print'] 
+        });
+        clearInterval(waitForjQuery);
+      }
+    },0);
   }
 }
