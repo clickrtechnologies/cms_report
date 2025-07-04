@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 declare var $: any;
 
 interface AdminReportRow {
@@ -25,6 +26,7 @@ interface AdminReportRow {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements AfterViewInit {
+
   rows: AdminReportRow[] = [
     {
       sno: 1,

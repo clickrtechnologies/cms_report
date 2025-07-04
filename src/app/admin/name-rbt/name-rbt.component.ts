@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-name-rbt',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./name-rbt.component.css']
 })
 export class NameRbtComponent {
-  rbtList = [
+rbtList = [
     {
       msisdn: '9876543210',
       name: 'Welcome Tune',

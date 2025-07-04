@@ -1,63 +1,73 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 position-relative">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">CMS CRBT Portal</a>
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" routerLink="/">CMS CRBT Portal</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cmsNavbar"
-      aria-controls="cmsNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Navbar Toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="cmsNavbar">
-      <!-- Left Navigation -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" *ngIf="role === 'admin'">
-          <a class="nav-link" routerLink="/admin/dashboard">Admin Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="role === 'cp'">
-          <a class="nav-link" routerLink="/cp/dashboard">CP Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="role === 'artist'">
-          <a class="nav-link" routerLink="/artist/dashboard">Artist Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="role === 'mno'">
-          <a class="nav-link" routerLink="/mno/dashboard">MNO Dashboard</a>
-        </li>
-
-        <!-- Shared Links -->
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+      <!-- Centered Menu Items -->
+      <ul class="navbar-nav gap-4">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/reports">Reports</a>
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contracts">Contracts</a>
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
         </li>
-      </ul>
-
-      <!-- Right Icons -->
-      <ul class="navbar-nav align-items-center">
-        <!-- Notification Icon -->
-        <li class="nav-item me-3 position-relative">
-          <a class="nav-link position-relative" href="#">
-            <i class="bi bi-bell fs-5"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              1
-              <span class="visually-hidden">unread messages</span>
-            </span>
-          </a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Us</a>
         </li>
 
-        <!-- User Dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            {{ username }}
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Setting</a></li>
-            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+        <!-- Hover Login - only show if NOT logged in -->
+        <li class="nav-item position-relative login-hover" *ngIf="!isLoggedIn">
+          <a class="nav-link">Login</a>
+          <ul class="login-submenu list-unstyled position-absolute bg-dark p-2 rounded shadow">
+            <li><a class="dropdown-item text-white" routerLink="/admin/login">Admin Login</a></li>
+            <li><a class="dropdown-item text-white" routerLink="/cp/login">CP Login</a></li>
+            <li><a class="dropdown-item text-white" routerLink="/artist/login">Artist Login</a></li>
+            <li><a class="dropdown-item text-white" routerLink="/mno/login">MNO Login</a></li>
           </ul>
         </li>
       </ul>
+    </div>
+
+    <!-- Notification + Profile -->
+    <div class="d-flex align-items-center gap-3" *ngIf="isLoggedIn">
+      <!-- 🔔 Notification Bell -->
+      <div class="position-relative">
+        <button class="btn btn-dark position-relative" (click)="toggleNotifications()">
+          <i class="bi bi-bell text-white fs-5"></i>
+          <span *ngIf="notifications.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ notifications.length }}
+          </span>
+        </button>
+        <!-- Notification List -->
+        <div *ngIf="showNotifications" class="position-absolute bg-white text-dark border rounded shadow p-3 mt-2" style="right: 60px; width: 250px; z-index: 1000;">
+          <div *ngIf="notifications.length === 0" class="text-muted small">No new notifications</div>
+          <ul class="list-unstyled mb-0">
+            <li *ngFor="let note of notifications" class="small border-bottom py-1">{{ note }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 👤 Profile Dropdown -->
+      <div class="dropdown">
+        <a class="d-flex align-items-center text-decoration-none dropdown-toggle text-white" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+          <img [src]="userImage" alt="User" width="36" height="36" class="rounded-circle me-2" />
+          <span class="d-none d-md-inline">{{ user?.role | titlecase }}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser">
+          <li><a class="dropdown-item" [routerLink]="['/' + user?.role + '/profile']">Profile</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/' + user?.role + '/setting']">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a href="" class="dropdown-item" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

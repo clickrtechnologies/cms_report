@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h4>CP Profile</h4>
+  <form *ngIf="cp">
+    <div class="mb-3">
+      <label>CP Name</label>
+      <input class="form-control" [(ngModel)]="cp.cpName" [readonly]="!editMode" name="cpName" />
+    </div>
+    <div class="mb-3">
+      <label>CP Email ID</label>
+      <input class="form-control" [(ngModel)]="cp.cpEmail" [readonly]="!editMode" name="cpEmail" />
+    </div>
+    <div class="mb-3">
+      <label>Username</label>
+      <input class="form-control" [(ngModel)]="cp.username" [readonly]="!editMode" name="username" />
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input class="form-control" [(ngModel)]="cp.password" [readonly]="!editMode" type="password" name="password" />
+    </div>
+
+    <button *ngIf="!editMode" class="btn btn-primary" (click)="editMode = true">Edit</button>
+    <button *ngIf="editMode" class="btn btn-success" (click)="saveChanges()">Save</button>
+  </form>
+</div>

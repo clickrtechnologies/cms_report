@@ -7,6 +7,8 @@ import { ApprovalsComponent } from './approvals/approvals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingComponent } from './setting/setting.component';
 
 
 @NgModule({
@@ -14,12 +16,14 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     ApprovalsComponent,
     ReportsComponent,
-    ContractsComponent
+    ContractsComponent,
+    ProfileComponent,
+    SettingComponent
   ],
   imports: [
     FormsModule,
     CommonModule,
-    ArtistRoutingModule
+    ArtistRoutingModule,
   ]
 })
 export class ArtistModule { }

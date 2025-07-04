@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'artist/login', component: LoginComponent },
+  { path: 'cp/login', component: LoginComponent },
+  { path: 'mno/login', component: LoginComponent },
+  {
     path: 'cp',
     loadChildren: () => import('./cp/cp.module').then(m => m.CpModule)
-  },
-  {
-    path: '',
-    redirectTo: '/cp/dashboard',
-    pathMatch: 'full'
   },
   {
     path : 'artist',

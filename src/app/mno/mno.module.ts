@@ -6,13 +6,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { FormsModule } from '@angular/forms';
+import { SettingComponent } from './setting/setting.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ApprovalsComponent,
-    ReportsComponent
+    ReportsComponent,
+    SettingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

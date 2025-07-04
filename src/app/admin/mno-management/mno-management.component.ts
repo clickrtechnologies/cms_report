@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -8,7 +9,6 @@ declare var $: any;
   styleUrls: ['./mno-management.component.css']
 })
 export class MnoManagementComponent {
-
   mnoLogins = [
     { telco: 'Airtel', name: 'MNO Head', email: 'mno@example.com', username: 'mnohead', password: '123456' }
   ];

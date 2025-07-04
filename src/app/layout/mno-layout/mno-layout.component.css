@@ -17,13 +17,11 @@
 
 .main-content {
   margin-left: 260px;
-  padding: 20px;
   min-width: 0;              
   overflow-x: auto;         
   overflow-y: auto;
   flex-grow: 1;
   max-width: 100%;
-  padding-top: 50px;
 }
 
 

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from './../../../auth/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +9,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  role: string = 'cp';
-  username: string = 'cp_user';
+  user: User | null = null;
+  isLoggedIn = false;
+  userImage = 'https://ui-avatars.com/api/?background=random&name=User';
+  notifications: string[] = [];
+  showNotifications = false;
 
-  constructor(private router: Router) {}
+  constructor(private AuthService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+  ngOnInit() {
+    this.user = this.AuthService.getLoggedInUser();
+    this.isLoggedIn = this.AuthService.isLoggedIn();
 
-    // Example expected structure: { name: "John", role: "cp" }
-    this.role = userData.role || '';
-    this.username = userData.name || 'User';
+    if (this.user) {
+      this.userImage = `https://ui-avatars.com/api/?background=random&name=${this.user.role}`;
+      this.notifications = [
+        'You have 2 new requests',
+        'System update available',
+        'Reminder: Meeting at 3 PM'
+      ];
+    }
   }
 
-  logout(): void {
-    localStorage.clear();
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
+
+  logout() {
+    this.AuthService.logout();
     this.router.navigate(['/login']);
   }
 }

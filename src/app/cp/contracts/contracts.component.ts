@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contracts',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./contracts.component.css']
 })
 export class ContractsComponent {
+
   contractList = [
     {
       artistName: 'Arijit Singh',

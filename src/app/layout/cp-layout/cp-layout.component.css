@@ -17,15 +17,12 @@
 
 .main-content {
   margin-left: 250px;
-  padding: 20px;
   min-width: 0;              
   overflow-x: auto;         
   overflow-y: auto;
   flex-grow: 1;
   max-width: 100%;
-  padding-top: 50px;
 }
-
 
 .nav-link:hover,
 .nav-link.active {

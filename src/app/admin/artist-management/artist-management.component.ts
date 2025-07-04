@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -8,6 +9,7 @@ declare var $: any;
   styleUrls: ['./artist-management.component.css']
 })
 export class ArtistManagementComponent {
+
   artistLogins = [
     { cpName: 'CP1 Music', name: 'Arijit Singh', email: 'arijit@example.com', username: 'arijit', password: '123456' }
   ];

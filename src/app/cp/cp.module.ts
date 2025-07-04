@@ -7,6 +7,8 @@ import { NameRbtComponent } from './name-rbt/name-rbt.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { FormsModule } from '@angular/forms';
     ContentUploadComponent,
     NameRbtComponent,
     ReportsComponent,
-    ContractsComponent
+    ContractsComponent,
+    ProfileComponent,
+    SettingComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -62,4 +63,5 @@ export class DashboardComponent {
       }
     }, 0);
   }
+
 }

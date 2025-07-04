@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -8,7 +9,6 @@ declare var $: any;
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-
   userLogins = [
     { name: 'Admin User', email: 'admin@example.com', username: 'admin', password: '123456' }
   ];

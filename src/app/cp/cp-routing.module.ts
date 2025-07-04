@@ -7,6 +7,8 @@ import { NameRbtComponent } from './name-rbt/name-rbt.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { AdminLayoutComponent } from '../layout/admin-layout/admin-layout.component';
+import { SettingComponent } from './setting/setting.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -18,7 +20,9 @@ const routes: Routes = [
       { path: 'content-upload', component: ContentUploadComponent },
       { path: 'name-rbt', component: NameRbtComponent },
       { path: 'reports', component: ReportsComponent },
-      { path: 'contracts', component: ContractsComponent }
+      { path: 'contracts', component: ContractsComponent },
+      {path : 'setting', component : SettingComponent},
+      {path : 'profile', component : ProfileComponent}
     ]
   },
   {

@@ -4,6 +4,8 @@ import { MnoLayoutComponent } from '../layout/mno-layout/mno-layout.component';
 import { ReportsComponent } from './reports/reports.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
+import { SettingComponent } from './setting/setting.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -13,7 +15,9 @@ const routes: Routes = [
       {path : '', redirectTo: 'dashboard', pathMatch: 'full'},
       {path : 'dashboard', component : DashboardComponent},
       {path : 'reports' , component : ReportsComponent},
-      {path : 'approvals', component : ApprovalsComponent}
+      {path : 'approvals', component : ApprovalsComponent},
+      {path : 'setting', component : SettingComponent},
+      {path : 'profile', component : ProfileComponent}
     ]
   } 
 ];

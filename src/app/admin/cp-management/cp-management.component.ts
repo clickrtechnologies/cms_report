@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -8,6 +9,7 @@ declare var $: any;
   styleUrls: ['./cp-management.component.css']
 })
 export class CpManagementComponent {
+
   cpLogins = [
     { name: 'CP1 Music', email: 'cp1@example.com', username: 'cp1user', password: '123456' }
   ];

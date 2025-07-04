@@ -7,6 +7,8 @@ import { CpManagementComponent } from './cp-management/cp-management.component';
 import { MnoManagementComponent } from './mno-management/mno-management.component';
 import { UserComponent } from './user/user.component';
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
+import { SettingComponent } from './setting/setting.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
       {path : 'mno-management', component : MnoManagementComponent},
       {path : 'user-management', component : UserComponent},
       {path : 'name-rbt', component : NameRbtComponent},
+      {path : 'setting', component : SettingComponent},
+      {path : 'profile', component : ProfileComponent}
     ]
   }
 ];

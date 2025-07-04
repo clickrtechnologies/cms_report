@@ -8,6 +8,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MnoManagementComponent } from './mno-management/mno-management.component';
 import { UserComponent } from './user/user.component';
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
+import { SettingComponent } from './setting/setting.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,14 @@ import { NameRbtComponent } from './name-rbt/name-rbt.component';
     DashboardComponent,
     MnoManagementComponent,
     UserComponent,
-    NameRbtComponent
+    NameRbtComponent,
+    SettingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

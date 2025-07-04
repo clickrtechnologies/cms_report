@@ -14,6 +14,10 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { ArtistRoutingModule } from './artist/artist-routing.module';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { MnoRoutingModule } from './mno/mno-routing.module';
+import { HomeComponent } from './shared/components/home/home.component';
+import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { HomeRouteModule } from './home/home-routing-module';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { MnoRoutingModule } from './mno/mno-routing.module';
     CpLayoutComponent,
     MnoLayoutComponent,
     ArtistLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    HomeComponent,
+    HomeLayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +40,8 @@ import { MnoRoutingModule } from './mno/mno-routing.module';
     CpRoutingModule,
     ArtistRoutingModule,
     AdminRoutingModule,
-    MnoRoutingModule
+    MnoRoutingModule,
+    HomeRouteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
