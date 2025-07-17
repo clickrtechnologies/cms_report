@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ArtistApproval } from 'src/app/models/artist-models/artist-approval.model';
+import { ApprovalService } from 'src/app/service/artist-service/artist-approval.service';
 
 @Component({
   selector: 'app-approvals',
@@ -6,25 +8,31 @@ import { Component } from '@angular/core';
   styleUrls: ['./approvals.component.css']
 })
 export class ApprovalsComponent {
-  approvals = [
-    {
-      id: 1,
-      artist: 'Arijit Singh',
-      album: 'Soulful Tunes',
-      songName: 'Raabta',
-      songFile: 'assets/audio/raabta.mp3',
-      genre: 'Romantic',
-      uploadDate: '2025-07-01',
-      cp: 'Alex Music',
-      fromDate: '2025-07-01',
-      toDate: '2025-12-31',
-      country: 'India',
-      mno: 'Airtel',
-      approved: null,
-      songCode: '',
-      qrUrl: ''
+  // approvals = [
+  //   {
+  //     id: 1,
+  //     artist: 'Arijit Singh',
+  //     album: 'Soulful Tunes',
+  //     songName: 'Raabta',
+  //     songFile: 'assets/audio/raabta.mp3',
+  //     genre: 'Romantic',
+  //     uploadDate: '2025-07-01',
+  //     cp: 'Alex Music',
+  //     fromDate: '2025-07-01',
+  //     toDate: '2025-12-31',
+  //     country: 'India',
+  //     mno: 'Airtel',
+  //     approved: null,
+  //     songCode: '',
+  //     qrUrl: ''
+  //   }
+  // ];
+
+  approvals: ArtistApproval[] = [];
+
+  constructor(private approvalService: ApprovalService) {
+      this.approvals = this.approvalService.getApprovals();
     }
-  ];
 
   approveSong(song: any) {
     if (song.approved === null) {

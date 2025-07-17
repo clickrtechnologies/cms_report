@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MnoReportService } from 'src/app/service/mno-service/mno-report.service';
 
 interface ReportData {
   sno: number;
@@ -32,18 +33,25 @@ export class ReportsComponent implements OnInit {
   currentMonth = new Date().toLocaleString('default', { month: 'long' });
   currentYear = new Date().getFullYear();
 
-  geoMnoList: GeoMno[] = [
-    { name: 'GeoName-MNO 1', months: ['January-2025', 'February-2025', 'March-2025'] },
-    { name: 'GeoName-MNO 2', months: ['January-2025', 'February-2025', 'March-2025'] }
-  ];
+  geoMnoList: GeoMno[] = [ ];
   selectedGeo: GeoMno | null = null;
   selectedMonth: string | null = null;
 
-  constructor() {}
+  constructor(private mnoReportService: MnoReportService) {}
 
   ngOnInit(): void {
     // Initialize with sample data or fetch from service
     this.reportData = [];
+    this.loadReportData();
+     this.loadGeoMnoList();
+  }
+
+  loadReportData(): void {
+    this.reportData = this.mnoReportService.getReportData();
+  }
+
+  loadGeoMnoList(): void {
+    this.geoMnoList = this.mnoReportService.getGeoMnoList();
   }
 
   toggleGeo(geo: GeoMno): void {

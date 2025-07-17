@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserLogin } from 'src/app/models/admin-models/user-login.model';
+import { UserManagementService } from 'src/app/service/admin-service/user-management.service';
 
 declare var $: any;
 
@@ -9,9 +11,11 @@ declare var $: any;
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  userLogins = [
-    { name: 'Admin User', email: 'admin@example.com', username: 'admin', password: '123456' }
-  ];
+  userLogins : UserLogin[] = [];
+
+  constructor(private userManagementService: UserManagementService) {
+    this.userLogins = this.userManagementService.getUserLogins();
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {

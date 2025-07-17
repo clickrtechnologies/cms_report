@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ContentUploadService } from '../../service/cp-service/content-upload.service';
+import { ContentUpload } from '../../models/cp-models/content-upload.model';
 
 @Component({
   selector: 'app-content-upload',
@@ -8,19 +10,25 @@ import { Router } from '@angular/router';
 })
 export class ContentUploadComponent {
 
-uploads = [
-  {
-    artistName: '',
-    albumName: '',
-    songName: '',
-    genre: '',
-    uploadDate: '',
-    cpName: '',
-    country: '',
-    mno: '',
-    audioFile: null as File | null // ✅ important fix
+  // uploads = [
+  //   {
+  //     artistName: '',
+  //     albumName: '',
+  //     songName: '',
+  //     genre: '',
+  //     uploadDate: '',
+  //     cpName: '',
+  //     country: '',
+  //     mno: '',
+  //     audioFile: null as File | null 
+  //   }
+  // ];
+
+  uploads: ContentUpload[] = [];
+
+  constructor(private contentUploadService: ContentUploadService) {
+    this.uploads = this.contentUploadService.getUploads();
   }
-];
 
   onFileChange(event: any, index: number) {
     const file = event.target.files[0];

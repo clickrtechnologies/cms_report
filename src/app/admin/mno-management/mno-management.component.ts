@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MnoLogin } from 'src/app/models/admin-models/mno-login.model';
+import { MnoManagementService } from 'src/app/service/admin-service/mno-management.service';
 
 declare var $: any;
 
@@ -9,9 +11,11 @@ declare var $: any;
   styleUrls: ['./mno-management.component.css']
 })
 export class MnoManagementComponent {
-  mnoLogins = [
-    { telco: 'Airtel', name: 'MNO Head', email: 'mno@example.com', username: 'mnohead', password: '123456' }
-  ];
+  mnoLogins :MnoLogin[]= [];
+
+  constructor(private mnoManagementService: MnoManagementService) {
+    this.mnoLogins = this.mnoManagementService.getMnoLogins();
+  }
 
 
   ngAfterViewInit(): void {

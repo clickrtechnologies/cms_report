@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ArtistContract } from 'src/app/models/artist-models/artist-contract.model';
+import { ArtistContractService } from 'src/app/service/artist-service/artist-contract.service';
 
 @Component({
   selector: 'app-contracts',
@@ -6,19 +8,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./contracts.component.css']
 })
 export class ContractsComponent {
-  contractList = [
-    {
-      date: '2025-07-01',
-      artistName: 'Arijit Singh',
-      albumName: 'Romantic Vibes',
-      songName: 'Tum Hi Ho',
-      genre: 'Romantic',
-      cpName: 'CP1 Music Co.',
-      fromDate: '2025-07-01',
-      toDate: '2025-12-31',
-      contractFile: File
-    }
-  ];
+  // contractList = [
+  //   {
+  //     date: '2025-07-01',
+  //     artistName: 'Arijit Singh',
+  //     albumName: 'Romantic Vibes',
+  //     songName: 'Tum Hi Ho',
+  //     genre: 'Romantic',
+  //     cpName: 'CP1 Music Co.',
+  //     fromDate: '2025-07-01',
+  //     toDate: '2025-12-31',
+  //     contractFile: File
+  //   }
+  // ];
+
+  contractList : ArtistContract[] = [];
+  
+    constructor(private artistContractService: ArtistContractService) {
+        this.contractList = this.artistContractService.getContracts();
+      }
 
 onFileUpload(event: any, index: number): void {
   const file = event.target.files[0];

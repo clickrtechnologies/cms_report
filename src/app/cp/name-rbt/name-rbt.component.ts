@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Rbt } from 'src/app/models/cp-models/rbt.model';
+import { RbtService } from 'src/app/service/cp-service/rbt.service';
 
 @Component({
   selector: 'app-name-rbt',
@@ -8,17 +10,22 @@ import { Router } from '@angular/router';
 })
 export class NameRbtComponent {
 
-  rbtList = [
-    {
-      msisdn: '9876543210',
-      name: 'Welcome Tune',
-      audioFile: null as File | null,
-      audioUrl: '',
-      hasPreviewed: false,
-      code: 'RBT1234'
-    }
-  ];
+  // rbtList = [
+  //   {
+  //     msisdn: '9876543210',
+  //     name: 'Welcome Tune',
+  //     audioFile: null as File | null,
+  //     audioUrl: '',
+  //     hasPreviewed: false,
+  //     code: 'RBT1234'
+  //   }
+  // ];
 
+  rbtList : Rbt[] = []
+  constructor(private rbtService: RbtService) {
+    this.rbtList = this.rbtService.getRbtList();
+  }
+  
   onAudioUpload(event: any, index: number) {
     const file = event.target.files[0];
     if (file) {

@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ArtistLogin } from 'src/app/models/admin-models/artist-login.model';
+import { ArtistManagementService } from 'src/app/service/admin-service/artist-management.service';
 
 declare var $: any;
 
@@ -10,9 +12,11 @@ declare var $: any;
 })
 export class ArtistManagementComponent {
 
-  artistLogins = [
-    { cpName: 'CP1 Music', name: 'Arijit Singh', email: 'arijit@example.com', username: 'arijit', password: '123456' }
-  ];
+  artistLogins : ArtistLogin[]= [ ];
+
+  constructor(private artistManagementService: ArtistManagementService) {
+    this.artistLogins = this.artistManagementService.getArtistLogins();
+  }
 
 
   ngAfterViewInit(): void {

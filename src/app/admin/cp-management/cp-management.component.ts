@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CpLogin } from 'src/app/models/admin-models/cp-login.model';
+import { CpManagementService } from 'src/app/service/admin-service/cp-management.service';
 
 declare var $: any;
 
@@ -10,9 +12,11 @@ declare var $: any;
 })
 export class CpManagementComponent {
 
-  cpLogins = [
-    { name: 'CP1 Music', email: 'cp1@example.com', username: 'cp1user', password: '123456' }
-  ];
+  cpLogins: CpLogin[] = [];
+
+  constructor(private cpManagementService: CpManagementService) {
+    this.cpLogins = this.cpManagementService.getCpLogins();
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {

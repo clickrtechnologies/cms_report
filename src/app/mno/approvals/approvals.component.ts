@@ -1,4 +1,6 @@
 import {AfterViewInit, Component } from '@angular/core';
+import { MnoApproval } from 'src/app/models/mno-models/mno-approval.model';
+import { MnoApprovalService } from 'src/app/service/mno-service/mno-approval.service';
 declare var $: any;
 @Component({
   selector: 'app-approvals',
@@ -6,24 +8,11 @@ declare var $: any;
   styleUrls: ['./approvals.component.css']
 })
 export class ApprovalsComponent {
-  approvalList = [
-    {
-      artistName: 'Arijit Singh',
-      albumName: 'Romantic Vibes',
-      songName: 'Tum Hi Ho',
-      songCode: 'ALX-0001',
-      qrCodeUrl: 'https://example.com/qr/ALX-0001',
-      genre: 'Romantic',
-      cpName: 'CP1 Music Co.',
-      country: 'India',
-      mno: 'Airtel',
-      contractFile: new File(["dummy content"], "contract.pdf", { type: "application/pdf" }),
-      expiryDate: '2026-01-31',
-      audioUrl: 'https://example.com/audio/tum-hi-ho.mp3',
-      approved: true,
-      rejectionReason: ''
-    }
-  ];
+  approvalList : MnoApproval []= [];
+
+  constructor(private mnoApprovalService: MnoApprovalService) {
+    this.approvalList = this.mnoApprovalService.getApprovals();
+  } 
 
   downloadContract(file: File): void {
     const blobUrl = URL.createObjectURL(file);
