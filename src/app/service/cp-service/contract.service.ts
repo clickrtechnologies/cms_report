@@ -1,29 +1,18 @@
-// src/app/contract.service.ts
 import { Injectable } from '@angular/core';
-import { Contract } from '../../models/cp-models/contract.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Contract } from 'src/app/models/cp-models/contract.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
+  private apiUrl = environment.apiUrl + 'contract';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getContracts(): Contract[] {
-    return [
-      {
-        artistName: 'Arijit Singh',
-        albumName: 'Romantic Vibes',
-        songName: 'Tum Hi Ho',
-        genre: 'Romantic',
-        cpName: 'CP1 Music Co.',
-        licensedCountry: 'India',
-        licensedMNO: 'Airtel',
-        fromDate: '2025-07-01',
-        toDate: '2025-12-31',
-        expiryDate: '2026-01-31',
-        contractFile: null
-      }
-    ];
+  getContracts(): Observable<Contract[]> {
+    return this.http.get<Contract[]>(`${this.apiUrl}/getlist`);
   }
 }

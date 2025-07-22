@@ -1,39 +1,18 @@
-// src/app/cp-task.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ContentUpload } from 'src/app/models/cp-models/content-upload.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContentUploadService {
+  private apiUrl = environment.apiUrl + 'contentuploadcontroller';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getUploads() {
-    return [
-      {
-        id: 1,
-        artistName: 'Arijit Singh',
-        albumName: 'Love Hits',
-        songName: 'Tum Hi Hoo',
-        genre: 'Romantic',
-        uploadDate: '2025-07-15',
-        cpName: 'Sony Music',
-        country: 'India',
-        mno: '9876543210',
-        audioFile: null as File | null
-      },
-      {
-        id: 2,
-        artistName: 'Shreya Ghoshal',
-        albumName: 'Melodies',
-        songName: 'Teri Ore',
-        genre: 'Soft',
-        uploadDate: '2025-07-16',
-        cpName: 'T-Series',
-        country: 'India',
-        mno: '9123456789',
-        audioFile: null as File | null
-      }
-    ];
+  getUploads(): Observable<ContentUpload[]> {
+    return this.http.get<ContentUpload[]>(`${this.apiUrl}/getlist`);
   }
 }

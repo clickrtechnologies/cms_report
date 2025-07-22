@@ -29,8 +29,22 @@ export class ContractsComponent {
    contractList: Contract[] = [];
 
   constructor(private contractService: ContractService) {
-      this.contractList = this.contractService.getContracts();
+      this.getContractList();
     }
+
+
+    getContractList(): void {
+  this.contractService.getContracts().subscribe({
+    next: (response: any) => {
+      this.contractList = Array.isArray(response.data) ? response.data : [];
+    },
+    error: (err) => {
+      console.error('Failed to fetch contract list:', err);
+      this.contractList = [];
+    }
+  });
+}
+
 
  
 

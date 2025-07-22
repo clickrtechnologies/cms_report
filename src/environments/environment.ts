@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:4300/'
+  production: false,
+  apiUrl: 'http://localhost:8084/' // trailing slash is good
 };

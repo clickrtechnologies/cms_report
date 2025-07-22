@@ -27,8 +27,23 @@ export class ContentUploadComponent {
   uploads: ContentUpload[] = [];
 
   constructor(private contentUploadService: ContentUploadService) {
-    this.uploads = this.contentUploadService.getUploads();
+    this.getUploadData();
   }
+
+  //fetch uploads from the service
+  getUploadData(): void {
+  this.contentUploadService.getUploads().subscribe({
+    next: (response: any) => {
+      this.uploads = Array.isArray(response.data) ? response.data : [];
+    },
+    error: (err) => {
+      console.error('Failed to fetch uploads:', err);
+      this.uploads = [];
+    }
+  });
+}
+
+
 
   onFileChange(event: any, index: number) {
     const file = event.target.files[0];

@@ -50,7 +50,7 @@ export class DashboardComponent {
   songs: Song[] = [];
   
     constructor(private dashboardService: DashboardService) {
-      this.songs = this.dashboardService.getSongs();
+      this.getSongs();
     }
 
   ngAfterViewInit(): void {
@@ -71,5 +71,18 @@ export class DashboardComponent {
       }
     }, 0);
   }
+
+  getSongs(): void {
+  this.dashboardService.getSongs().subscribe({
+    next: (response: any) => {
+      this.songs = Array.isArray(response.data) ? response.data : [];
+    },
+    error: (err) => {
+      console.error('Failed to fetch songs:', err);
+      this.songs = [];
+    }
+  });
+}
+
 
 }

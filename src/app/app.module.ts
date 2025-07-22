@@ -18,6 +18,7 @@ import { HomeComponent } from './shared/components/home/home.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { HomeRouteModule } from './home/home-routing-module';
 import { LoginComponent } from './auth/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LoginComponent } from './auth/login/login.component';
     ArtistRoutingModule,
     AdminRoutingModule,
     MnoRoutingModule,
-    HomeRouteModule
+    HomeRouteModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

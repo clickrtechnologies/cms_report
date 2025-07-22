@@ -1,31 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Rbt } from '../../models/cp-models/rbt.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Rbt } from 'src/app/models/cp-models/rbt.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RbtService {
+  private apiUrl = environment.apiUrl + 'rbtcontroller';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getRbtList(): Rbt[] {
-    return [
-      {
-        msisdn: '9876543210',
-        name: 'Welcome Tune',
-        audioFile: null,
-        audioUrl: '',
-        hasPreviewed: false,
-        code: 'RBT1234'
-      },
-      {
-        msisdn: '9123456780',
-        name: 'Caller Tune 2',
-        audioFile: null,
-        audioUrl: 'https://example.com/audio/sample2.mp3',
-        hasPreviewed: true,
-        code: 'RBT5678'
-      }
-    ];
+  getRbtList(): Observable<Rbt[]> {
+    return this.http.get<Rbt[]>(`${this.apiUrl}/getrbtlist`);
   }
 }
