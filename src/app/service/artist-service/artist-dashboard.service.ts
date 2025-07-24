@@ -1,43 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ArtistSong } from 'src/app/models/artist-models/artist-song.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistDashboardService {
 
-  constructor() {}
+  private apiUrl = environment.apiUrl + 'artistdashboard';
+       
+  constructor(private http: HttpClient) {}
 
-  getArtistDashboardSongs(): ArtistSong[] {
-    return [
-      {
-        artistName: 'Neha Kakkar',
-        albumName: 'Hits 2025',
-        songName: 'Lehenga',
-        songCode: 'ALX-001',
-        genre: 'Pop',
-        uploadDate: '2025-07-01',
-        cpName: 'Alex Content Co.',
-        fromDate: '2025-07-01',
-        toDate: '2025-12-31',
-        licensedCountry: 'India',
-        licensedMno: 'Airtel',
-        approved: true
-      },
-      {
-        artistName: 'KK',
-        albumName: 'Soul Beats',
-        songName: 'Pal',
-        songCode: 'ALX-002',
-        genre: 'Soft Rock',
-        uploadDate: '2025-06-28',
-        cpName: 'Alex Content Co.',
-        fromDate: '2025-07-01',
-        toDate: '2025-12-31',
-        licensedCountry: 'India',
-        licensedMno: 'Vodafone',
-        approved: true
-      }
-    ];
+  getArtistDashboardSongs(): Observable<ArtistSong[]> {
+    return this.http.get<ArtistSong[]>(`${this.apiUrl}/getlist`);
   }
 }

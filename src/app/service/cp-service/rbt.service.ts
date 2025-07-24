@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RbtService {
-  private apiUrl = environment.apiUrl + 'rbtcontroller';
+  private apiUrl = environment.apiUrl + 'rbt';
 
   constructor(private http: HttpClient) {}
 
   getRbtList(): Observable<Rbt[]> {
-    return this.http.get<Rbt[]>(`${this.apiUrl}/getrbtlist`);
+    return this.http.get<Rbt[]>(`${this.apiUrl}/getlist`);
   }
 }

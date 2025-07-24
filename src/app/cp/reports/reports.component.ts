@@ -21,10 +21,34 @@ export class ReportsComponent {
   geoList: GeoInfo[] = [];
 
   constructor(private reportService: ReportService) {
-      this.reportsData = this.reportService.getReports();
-      this.geoList = this.reportService.getGeoList();
+      this.getReportList();
+      this.getGeoList();
 
     }
+
+  getReportList(): void {
+  this.reportService.getReports().subscribe({
+    next: (response: any) => {
+      this.reportsData = Array.isArray(response.data) ? response.data : [];
+    },
+    error: (err) => {
+      console.error('Failed to fetch Report list:', err);
+      this.reportsData = [];
+    }
+  });
+}
+
+  getGeoList(): void {
+    this.reportService.getGeoList().subscribe({
+      next: (response: any) => {
+        this.geoList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch Geo list:', err);
+        this.geoList = [];
+      }
+    });
+  }
 
   selectGeo(geo: string) {
     this.selectedGeo = this.selectedGeo === geo ? null : geo;

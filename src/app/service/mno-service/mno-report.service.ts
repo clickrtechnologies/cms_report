@@ -1,43 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GeoMno } from 'src/app/models/mno-models/mno-geo.model';
 import { ReportData } from 'src/app/models/mno-models/mno-report.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MnoReportService {
-  constructor() {}
+   private apiUrl = environment.apiUrl + 'mnoreport';
+      
+        constructor(private http: HttpClient) {}
 
-  getReportData(): ReportData[] {
-    return [
-      {
-        sno: 1,
-        date: '2025-07-01',
-        artistName: 'Arijit Singh',
-        albumName: 'Romantic Vibes',
-        songName: 'Tum Hi Ho',
-        genCat: 'Romantic',
-        downloads: 15000,
-        modes: {
-          copy: true,
-          ivr: false,
-          app: true
-        },
-        cpName: 'CP1 Music'
-      }
-    ];
+  getReportData():Observable<ReportData[]> {
+    return  this.http.get<ReportData[]>(`${this.apiUrl}/getlist`);
   }
 
-  getGeoMnoList(): GeoMno[] {
-    return [
-      {
-        name: 'Airtel',
-        months: ['January', 'February', 'March']
-      },
-      {
-        name: 'Jio',
-        months: ['April', 'May', 'June']
-      }
-    ];
+  getGeoMnoList(): Observable<GeoMno[]> {
+    return this.http.get<GeoMno[]>(`${this.apiUrl}/geo/getlist`);
   }
 }

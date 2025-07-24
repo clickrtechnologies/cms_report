@@ -1,31 +1,104 @@
-  <!-- Artist Login -->
-  <div  class="container-fluid mt-3">
+<div class="container-fluid mt-3">
   <h5>➤ Artist Login</h5>
-  <div class="table-responsive mb-5">
-    <table class="table table-bordered table-striped text-center w-100" id="artistTable">
-      <thead class="table-dark">
-        <tr>
-          <th>SNO</th>
-          <th>CP Name</th>
-          <th>Artist Name</th>
-          <th>Artist Email</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Action Login</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let artist of artistLogins; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ artist.cpName }}</td>
-          <td>{{ artist.name }}</td>
-          <td>{{ artist.email }}</td>
-          <td>{{ artist.username }}</td>
-          <td>{{ artist.password }}</td>
-          <td><button class="btn btn-sm btn-primary">Login</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
-   </div>
+  <div class="table-responsive mb-5">
+    <form [formGroup]="newArtistForm">
+      <table class="table table-bordered table-striped text-center w-100" id="artistTable">
+        <thead class="table-dark">
+          <tr>
+            <th>SNO</th>
+            <th>CP Name</th>
+            <th>Artist Name</th>
+            <th>Artist Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Action Login</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ➕ Form Row for New Artist Login -->
+          <tr>
+            <td>#</td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="cpName"
+                placeholder="Enter CP Name"
+              />
+              <div *ngIf="newArtistForm.get('cpName')?.touched && newArtistForm.get('cpName')?.invalid" class="text-danger small">
+                CP Name is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="name"
+                placeholder="Enter Artist Name"
+              />
+              <div *ngIf="newArtistForm.get('name')?.touched && newArtistForm.get('name')?.invalid" class="text-danger small">
+                Artist Name is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="email"
+                class="form-control form-control-sm"
+                formControlName="email"
+                placeholder="Enter Email"
+              />
+              <div *ngIf="newArtistForm.get('email')?.touched && newArtistForm.get('email')?.invalid" class="text-danger small">
+                Valid Email is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="username"
+                placeholder="Enter Username"
+              />
+              <div *ngIf="newArtistForm.get('username')?.touched && newArtistForm.get('username')?.invalid" class="text-danger small">
+                Username is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="password"
+                class="form-control form-control-sm"
+                formControlName="password"
+                placeholder="Enter Password"
+              />
+              <div *ngIf="newArtistForm.get('password')?.touched && newArtistForm.get('password')?.invalid" class="text-danger small">
+                Password is required.
+              </div>
+            </td>
+            <td>
+              <button
+                class="btn btn-success btn-sm"
+                type="button"
+                (click)="createArtistLogin()"
+              >
+                Create
+              </button>
+            </td>
+          </tr>
+
+          <!-- Existing Artist Login Rows -->
+          <tr *ngFor="let artist of artistLogins; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ artist.cpName }}</td>
+            <td>{{ artist.name }}</td>
+            <td>{{ artist.email }}</td>
+            <td>{{ artist.username }}</td>
+            <td>{{ artist.password }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="artistLoginAs(artist)">Login</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>

@@ -11,8 +11,21 @@ export class ApprovalsComponent {
   approvalList : MnoApproval []= [];
 
   constructor(private mnoApprovalService: MnoApprovalService) {
-    this.approvalList = this.mnoApprovalService.getApprovals();
+    this.getApprovalList();
   } 
+
+  // method to fetch approvals from the service
+  getApprovalList(): void {
+    this.mnoApprovalService.getApprovals().subscribe({
+      next: (response: any) => {
+        this.approvalList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch approvals:', err);
+        this.approvalList = [];
+      }
+    });
+  }
 
   downloadContract(file: File): void {
     const blobUrl = URL.createObjectURL(file);

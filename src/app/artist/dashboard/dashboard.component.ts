@@ -46,8 +46,21 @@ export class DashboardComponent {
   songs: ArtistSong[] = [];
     
       constructor(private artistDashboardService: ArtistDashboardService) {
-        this.songs = this.artistDashboardService.getArtistDashboardSongs();
+        this.getSongList();
       }
+
+  // Fetch songs from the service
+  getSongList(): void {
+    this.artistDashboardService.getArtistDashboardSongs().subscribe({
+      next: (response: any) => {
+        this.songs = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch songs:', err);
+        this.songs = [];
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {

@@ -1,28 +1,92 @@
-<div  class="container-fluid mt-3">
+<div class="container-fluid mt-3">
   <h5>➤ CP Login</h5>
-  <div class="table-responsive mb-5">
-    <table class="table table-bordered table-striped text-center w-100" id="cpTable">
-      <thead class="table-dark">
-        <tr>
-          <th>SNO</th>
-          <th>CP Name</th>
-          <th>CP Email</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Action Login</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cp of cpLogins; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ cp.name }}</td>
-          <td>{{ cp.email }}</td>
-          <td>{{ cp.username }}</td>
-          <td>{{ cp.password }}</td>
-          <td><button class="btn btn-sm btn-primary">Login</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
+  <div class="table-responsive mb-5">
+    <form [formGroup]="newCpForm">
+      <table class="table table-bordered table-striped text-center w-100" id="cpTable">
+        <thead class="table-dark">
+          <tr>
+            <th>SNO</th>
+            <th>CP Name</th>
+            <th>CP Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Action Login</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ➕ Form Row for New CP Login -->
+          <tr>
+            <td>#</td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="name"
+                placeholder="Enter CP Name"
+              />
+              <div *ngIf="newCpForm.get('name')?.touched && newCpForm.get('name')?.invalid" class="text-danger small">
+                CP Name is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="email"
+                class="form-control form-control-sm"
+                formControlName="email"
+                placeholder="Enter Email"
+              />
+              <div *ngIf="newCpForm.get('email')?.touched && newCpForm.get('email')?.invalid" class="text-danger small">
+                Valid Email is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="username"
+                placeholder="Enter Username"
+              />
+              <div *ngIf="newCpForm.get('username')?.touched && newCpForm.get('username')?.invalid" class="text-danger small">
+                Username is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="password"
+                class="form-control form-control-sm"
+                formControlName="password"
+                placeholder="Enter Password"
+              />
+              <div *ngIf="newCpForm.get('password')?.touched && newCpForm.get('password')?.invalid" class="text-danger small">
+                Password is required.
+              </div>
+            </td>
+            <td>
+              <button
+                class="btn btn-success btn-sm"
+                type="button"
+                (click)="createCpLogin()"
+              >
+                Create
+              </button>
+            </td>
+          </tr>
+
+          <!-- Existing CP Login Rows -->
+          <tr *ngFor="let cp of cpLogins; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ cp.name }}</td>
+            <td>{{ cp.email }}</td>
+            <td>{{ cp.username }}</td>
+            <td>{{ cp.password }}</td>
+            <td>
+  <button class="btn btn-primary btn-sm" (click)="simulateCpLogin(cp)">Login</button>
+</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
 </div>

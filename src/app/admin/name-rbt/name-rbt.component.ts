@@ -12,8 +12,21 @@ export class NameRbtComponent {
 rbtList : NameRbt []=[];
 
   constructor(private nameRbtService: NameRbtService) {
-      this.rbtList = this.nameRbtService.getNameRbtList();
+      this.getNameRbtList();
     }
+
+  // Fetch the list of Name RBTs
+  getNameRbtList(): void {
+  this.nameRbtService.getNameRbtList().subscribe({
+    next: (response: any) => {
+      this.rbtList = Array.isArray(response.data) ? response.data : [];
+    },
+    error: (err: any) => {
+      console.error('Failed to fetch RBT list:', err);
+      this.rbtList = [];
+    }
+  });
+}
 
   onAudioUpload(event: any, index: number) {
     const file = event.target.files[0];

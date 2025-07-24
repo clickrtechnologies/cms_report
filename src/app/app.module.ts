@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { CpLayoutComponent } from './layout/cp-layout/cp-layout.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CpRoutingModule } from './cp/cp-routing.module';
 import { CommonModule } from '@angular/common';
 import { MnoLayoutComponent } from './layout/mno-layout/mno-layout.component';
@@ -43,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     AdminRoutingModule,
     MnoRoutingModule,
     HomeRouteModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

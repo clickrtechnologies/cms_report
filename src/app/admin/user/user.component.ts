@@ -14,7 +14,20 @@ export class UserComponent {
   userLogins : UserLogin[] = [];
 
   constructor(private userManagementService: UserManagementService) {
-    this.userLogins = this.userManagementService.getUserLogins();
+    this.getUserLoginList();
+  }
+
+  // Fetch user logins from the service
+  getUserLoginList(): void {
+    this.userManagementService.getUserLogins().subscribe({
+      next: (response: any) => {
+        this.userLogins = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch user logins:', err);
+        this.userLogins = [];
+      }
+    });
   }
 
   ngAfterViewInit(): void {

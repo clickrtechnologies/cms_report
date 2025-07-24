@@ -25,8 +25,21 @@ export class ContractsComponent {
   contractList : ArtistContract[] = [];
   
     constructor(private artistContractService: ArtistContractService) {
-        this.contractList = this.artistContractService.getContracts();
+        this.getContractList();
       }
+
+      // Method to fetch contracts from the service
+  getContractList(): void {
+    this.artistContractService.getContracts().subscribe({
+      next: (response: any) => {
+        this.contractList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch contracts:', err);
+        this.contractList = [];
+      }
+    });
+  }
 
 onFileUpload(event: any, index: number): void {
   const file = event.target.files[0];

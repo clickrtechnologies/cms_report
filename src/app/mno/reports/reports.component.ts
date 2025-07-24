@@ -42,17 +42,35 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
     // Initialize with sample data or fetch from service
     this.reportData = [];
-    this.loadReportData();
-     this.loadGeoMnoList();
+    this.getReportData();
+     this.getGeoMnoList();
   }
 
-  loadReportData(): void {
-    this.reportData = this.mnoReportService.getReportData();
+  // Methods to load report data and geo MNO list
+  getReportData(): void {
+    this.mnoReportService.getReportData().subscribe({
+      next: (response: any) => {
+        this.reportData = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch approvals:', err);
+        this.reportData = [];
+      }
+    });
   }
 
-  loadGeoMnoList(): void {
-    this.geoMnoList = this.mnoReportService.getGeoMnoList();
+  getGeoMnoList(): void {
+    this.mnoReportService.getGeoMnoList().subscribe({
+      next: (response: any) => {
+        this.geoMnoList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch geo MNO list:', err);
+        this.geoMnoList = [];
+      }
+    });
   }
+
 
   toggleGeo(geo: GeoMno): void {
     if (this.selectedGeo === geo) {

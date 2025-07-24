@@ -11,8 +11,22 @@ export class DashboardComponent {
   mnoSongs : MnoSong[]= [];
 
   constructor(private mnoDashboardService: MnoDashboardService) {
-    this.mnoSongs = this.mnoDashboardService.getMnoSongs(); 
+    this.getMnoSongs();
   }
+
+  // Method to fetch MNO songs from the service
+  getMnoSongs(): void {
+    this.mnoDashboardService.getMnoSongs().subscribe({
+      next: (response: any) => {
+        this.mnoSongs = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch MNO songs:', err);
+        this.mnoSongs = [];
+      }
+    });
+  }
+
 
     ngAfterViewInit(): void {
     setTimeout(() => {

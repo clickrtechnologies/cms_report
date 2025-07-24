@@ -1,26 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CpLogin } from 'src/app/models/admin-models/cp-login.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CpManagementService{
-  constructor() {}
+  private apiUrl = environment.apiUrl+'cplogin';
+         
+    constructor(private http: HttpClient) {}
 
-  getCpLogins(): CpLogin[] {
-    return [
-      {
-        name: 'CP1 Music',
-        email: 'cp1@example.com',
-        username: 'cp1user',
-        password: '123456'
-      },
-      {
-        name: 'CP2 Beats',
-        email: 'cp2@example.com',
-        username: 'cp2user',
-        password: 'abcdef'
-      }
-    ];
+  getCpLogins(): Observable<CpLogin[]> {
+     return this.http.get<CpLogin[]>(`${this.apiUrl}/getlist`);
   }
+
+  createCpLogin(payload: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/create`, payload);
+}
+
+login(username: string, password: string): Observable<any> {
+    const payload = { username, password };
+    return this.http.post(`${this.apiUrl}/login`, payload);
+  }
+
+
 }

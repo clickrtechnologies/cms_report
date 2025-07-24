@@ -10,7 +10,7 @@ import { UserComponent } from './user/user.component';
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

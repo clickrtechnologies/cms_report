@@ -1,39 +1,21 @@
 // src/app/contract.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ArtistContract } from 'src/app/models/artist-models/artist-contract.model';
 import { Contract } from 'src/app/models/cp-models/contract.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistContractService {
 
-  constructor() {}
+  private apiUrl = environment.apiUrl + 'artistcontract';
+         
+    constructor(private http: HttpClient) {}
 
-  getContracts(): ArtistContract[] {
-    return [
-      {
-        date: '2025-07-01',
-        artistName: 'Arijit Singh',
-        albumName: 'Soulful Melodies',
-        songName: 'Tum Mile',
-        genre: 'Romantic',
-        cpName: 'Melody Records',
-        fromDate: '2025-07-01',
-        toDate: '2025-12-31',
-        contractFile: null
-      },
-      {
-        date: '2025-07-10',
-        artistName: 'Neha Kakkar',
-        albumName: 'Party Hits',
-        songName: 'Coca Cola',
-        genre: 'Dance',
-        cpName: 'BeatBox Studios',
-        fromDate: '2025-07-15',
-        toDate: '2025-11-30',
-        contractFile: null
-      }
-    ];
+  getContracts(): Observable<ArtistContract[]> {
+    return this.http.get<ArtistContract[]>(`${this.apiUrl}/getlist`);
   }
 }

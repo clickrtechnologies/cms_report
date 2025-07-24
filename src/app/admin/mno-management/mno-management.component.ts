@@ -14,7 +14,20 @@ export class MnoManagementComponent {
   mnoLogins :MnoLogin[]= [];
 
   constructor(private mnoManagementService: MnoManagementService) {
-    this.mnoLogins = this.mnoManagementService.getMnoLogins();
+    this.getMnoLoginList();
+  }
+
+  // Fetch MNO logins from the service
+  getMnoLoginList(): void { 
+    this.mnoManagementService.getMnoLogins().subscribe({
+      next: (response: any) => {
+        this.mnoLogins = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch MNO logins:', err);
+        this.mnoLogins = [];
+      }
+    });
   }
 
 

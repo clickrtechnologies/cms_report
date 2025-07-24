@@ -57,10 +57,36 @@ export class ReportsComponent {
     geoList: GeoInfo[] = [];
   
     constructor(private artistReportService: ArtistReportService) {
-        this.reportsData = this.artistReportService.getArtistReports();
-        this.geoList = this.artistReportService.getGeoList();
+        this.getReportsData();
+        this.getGeoList();
   
       }
+
+  //method to fetch reports data
+  getReportsData(): void {
+    this.artistReportService.getArtistReports().subscribe({
+      next: (response: any) => {
+        this.reportsData = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch reports:', err);
+        this.reportsData = [];
+      }
+    });
+  }
+
+  //method to fetch geo list
+  getGeoList(): void {
+    this.artistReportService.getGeoList().subscribe({
+      next: (response: any) => {
+        this.geoList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch geo list:', err);
+        this.geoList = [];
+      }
+    });
+  }
 
   selectGeo(geo: string) {
     this.selectedGeo = this.selectedGeo === geo ? null : geo;

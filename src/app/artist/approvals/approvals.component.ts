@@ -31,8 +31,21 @@ export class ApprovalsComponent {
   approvals: ArtistApproval[] = [];
 
   constructor(private approvalService: ApprovalService) {
-      this.approvals = this.approvalService.getApprovals();
+      this.getApprovals();
     }
+
+  // Method to fetch approvals from the service
+  getApprovals(): void {
+    this.approvalService.getApprovals().subscribe({
+      next: (response: any) => {
+        this.approvals = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch approvals:', err);
+        this.approvals = [];
+      }
+    });
+  }
 
   approveSong(song: any) {
     if (song.approved === null) {
