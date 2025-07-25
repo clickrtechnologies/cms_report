@@ -2,30 +2,102 @@
 <div  class="container-fluid mt-3">
   <h5>➤ MNO Login</h5>
   <div class="table-responsive mb-5">
-    <table class="table table-bordered table-striped text-center w-100" id="mnoTable">
-      <thead class="table-dark">
-        <tr>
-          <th>SNO</th>
-          <th>Telco Name</th>
-          <th>Personnel Name</th>
-          <th>Personnel Email</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Action Login</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mno of mnoLogins; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ mno.telco }}</td>
-          <td>{{ mno.name }}</td>
-          <td>{{ mno.email }}</td>
-          <td>{{ mno.username }}</td>
-          <td>{{ mno.password }}</td>
-          <td><button class="btn btn-sm btn-primary">Login</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <form [formGroup]="newMnoForm">
+      <table class="table table-bordered table-striped text-center w-100" id="mnoTable">
+        <thead class="table-dark">
+          <tr>
+            <th>SNO</th>
+            <th>Telco Name</th>
+            <th>Personnel Name</th>
+            <th>Personnel Email</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Action Login</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ➕ Form Row for New MNO Login -->
+          <tr>
+            <td>#</td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="telco"
+                placeholder="Enter Telco Name"
+              />
+              <div *ngIf="newMnoForm.get('telco')?.touched && newMnoForm.get('telco')?.invalid" class="text-danger small">
+                Telco Name is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="name"
+                placeholder="Enter Personnel Name"
+              />
+              <div *ngIf="newMnoForm.get('name')?.touched && newMnoForm.get('name')?.invalid" class="text-danger small">
+                Personnel Name is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="email"
+                class="form-control form-control-sm"
+                formControlName="email"
+                placeholder="Enter Email"
+              />
+              <div *ngIf="newMnoForm.get('email')?.touched && newMnoForm.get('email')?.invalid" class="text-danger small">
+                Valid Email is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                formControlName="username"
+                placeholder="Enter Username"
+              />
+              <div *ngIf="newMnoForm.get('username')?.touched && newMnoForm.get('username')?.invalid" class="text-danger small">
+                Username is required.
+              </div>
+            </td>
+            <td>
+              <input
+                type="password"
+                class="form-control form-control-sm"
+                formControlName="password"
+                placeholder="Enter Password"
+              />
+              <div *ngIf="newMnoForm.get('password')?.touched && newMnoForm.get('password')?.invalid" class="text-danger small">
+                Password is required.
+              </div>
+            </td>
+            <td>
+              <button
+                class="btn btn-success btn-sm"
+                type="button"
+                (click)="createMnoLogin()"
+              >
+                Create
+              </button>
+            </td>
+          </tr>
+
+          <!-- Existing MNO Login Rows -->
+          <tr *ngFor="let mno of mnoLogins; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ mno.telco }}</td>
+            <td>{{ mno.name }}</td>
+            <td>{{ mno.email }}</td>
+            <td>{{ mno.username }}</td>
+            <td>{{ mno.password }}</td>
+            <td><button class="btn btn-sm btn-primary">Login</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
   </div>
   
 </div>

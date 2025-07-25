@@ -6,16 +6,26 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  email = '';
-  password = '';
-  errorMessage = '';
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService) {}
 
   login() {
-    const success = this.authService.login(this.email, this.password);
-    if (!success) {
-      this.errorMessage = 'Invalid email or password';
+    if (!this.username || !this.password) {
+      this.errorMessage = 'Username and password are required';
+      return;
     }
+
+    this.authService.login(this.username, this.password).subscribe({
+      next: (res) => {
+        this.errorMessage = '';
+        // success redirect logic handled inside auth service
+      },
+      error: (err) => {
+        this.errorMessage = err?.error?.errorMessage || 'Login failed';
+      }
+    });
   }
 }

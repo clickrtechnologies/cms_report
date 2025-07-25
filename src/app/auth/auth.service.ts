@@ -1,58 +1,87 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from 'src/environments/environment';
+
+export interface AuthResponse {
+  accessToken: string;
+  role: string;
+  username: string;
+  tokenType?: string;
+}
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private users: User[] = [
-    { email: 'admin@gmail.com', password: 'admin@123', role: 'admin' },
-    { email: 'cp@gmail.com', password: 'cp@123', role: 'cp' },
-    { email: 'artist@gmail.com', password: 'artist@123', role: 'artist' },
-    { email: 'mno@gmail.com', password: 'mno@123', role: 'mno' },
-  ];
+  private tokenKey = 'accessToken';
+  private roleKey = 'userRole';
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    if (user) {
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
-      this.navigateToDashboard(user.role);
-      return true;
-    }
-    return false;
+  // 🔐 Authenticate user
+  login(username: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(
+  `${environment.apiUrl}auth/login`,
+  { username, password }
+).pipe(
+  tap((response) => {
+    sessionStorage.setItem(this.tokenKey, response.accessToken);
+    sessionStorage.setItem(this.roleKey, response.role);
+    this.navigateToDashboard(response.role);
+  })
+);
+
   }
 
+  // 🔁 Navigate to dashboard
   private navigateToDashboard(role: string) {
     switch (role) {
-      case 'admin':
+      case 'ROLE_ADMIN':
         this.router.navigate(['/admin/dashboard']);
         break;
-      case 'cp':
+      case 'ROLE_CP':
         this.router.navigate(['/cp/dashboard']);
         break;
-      case 'artist':
+      case 'ROLE_ARTIST':
         this.router.navigate(['/artist/dashboard']);
         break;
-      case 'mno':
+      case 'ROLE_MNO':
         this.router.navigate(['/mno/dashboard']);
         break;
+      case 'ROLE_SUPER_ADMIN':
+        this.router.navigate(['/admin/dashboard']);
+        break;
+      default:
+        this.router.navigate(['/login']);
     }
   }
 
-  logout() {
-    localStorage.removeItem('loggedInUser');
+  //  Logout
+  logout(): void {
+    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.roleKey);
     this.router.navigate(['/login']);
   }
 
+  //  Helpers
+  getToken(): string | null {
+    return sessionStorage.getItem(this.tokenKey);
+  }
+
+  getUserRole(): string | null {
+    return sessionStorage.getItem(this.roleKey);
+  }
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('loggedInUser');
+    return !!this.getToken();
   }
 
   getLoggedInUser(): User | null {
-    const user = localStorage.getItem('loggedInUser');
+    const user = sessionStorage.getItem('loggedInUser');
     return user ? JSON.parse(user) : null;
   }
 }

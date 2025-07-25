@@ -15,4 +15,13 @@ export class MnoManagementService {
   getMnoLogins(): Observable<MnoLogin[]> {
     return this.http.get<MnoLogin[]>(`${this.apiUrl}/getlist`);
   }
+
+  createMnoLogin(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, payload);
+  }
+
+  login(username: string, password: string): Observable<any> {
+    const payload = { username, password };
+    return this.http.post(`${this.apiUrl}/login`, payload);
+  }
 }
