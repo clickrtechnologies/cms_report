@@ -23,10 +23,10 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   // 🔐 Authenticate user
-  login(username: string, password: string): Observable<AuthResponse> {
+  login(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
   `${environment.apiUrl}auth/login`,
-  { username, password }
+  { email, password }
 ).pipe(
   tap((response) => {
     sessionStorage.setItem(this.tokenKey, response.accessToken);
@@ -39,26 +39,30 @@ export class AuthService {
 
   // 🔁 Navigate to dashboard
   private navigateToDashboard(role: string) {
-    switch (role) {
-      case 'ROLE_ADMIN':
-        this.router.navigate(['/admin/dashboard']);
-        break;
-      case 'ROLE_CP':
-        this.router.navigate(['/cp/dashboard']);
-        break;
-      case 'ROLE_ARTIST':
-        this.router.navigate(['/artist/dashboard']);
-        break;
-      case 'ROLE_MNO':
-        this.router.navigate(['/mno/dashboard']);
-        break;
-      case 'ROLE_SUPER_ADMIN':
-        this.router.navigate(['/admin/dashboard']);
-        break;
-      default:
-        this.router.navigate(['/login']);
-    }
+  console.log('Navigating based on role:', role);  // Add this
+
+  switch (role) {
+    case 'ROLE_ADMIN':
+      this.router.navigate(['/admin/dashboard']).then(success => console.log('Admin nav success?', success));
+      break;
+    case 'ROLE_CP':
+      this.router.navigate(['/cp/dashboard']).then(success => console.log('CP nav success?', success));
+      break;
+    case 'ROLE_ARTIST':
+      this.router.navigate(['/artist/dashboard']).then(success => console.log('Artist nav success?', success));
+      break;
+    case 'ROLE_MNO':
+      this.router.navigate(['/mno/dashboard']).then(success => console.log('MNO nav success?', success));
+      break;
+    case 'ROLE_SUPER_ADMIN':
+      this.router.navigate(['/admin/dashboard']).then(success => console.log('Super Admin nav success?', success));
+      break;
+    default:
+      console.warn('Unknown role. Redirecting to login.');
+      this.router.navigate(['/login']);
   }
+}
+
 
   //  Logout
   logout(): void {

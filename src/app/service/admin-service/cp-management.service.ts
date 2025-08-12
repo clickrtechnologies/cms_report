@@ -8,16 +8,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CpManagementService{
+  private apiUrl2 = environment.apiUrl+'userlogin';
   private apiUrl = environment.apiUrl+'cplogin';
          
     constructor(private http: HttpClient) {}
 
   getCpLogins(): Observable<CpLogin[]> {
-     return this.http.get<CpLogin[]>(`${this.apiUrl}/getlist`);
+     return this.http.get<CpLogin[]>(`${this.apiUrl2}/getcplogins`);
   }
 
   createCpLogin(payload: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/create`, payload);
+  return this.http.post(`${this.apiUrl2}/create`, payload);
 }
 
 login(username: string, password: string): Observable<any> {

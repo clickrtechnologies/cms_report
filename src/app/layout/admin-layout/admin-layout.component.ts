@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class AdminLayoutComponent {
   constructor(private router: Router) {}
   ngOnInit(): void {
-    if (!localStorage.getItem('loggedInUser')) {
+    if (!sessionStorage.getItem('userRole')) {
+      console.log('User not logged in, redirecting to home');
       this.router.navigate(['/home']);
     }
   }

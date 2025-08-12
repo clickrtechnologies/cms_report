@@ -59,7 +59,9 @@ export class CpManagementComponent implements AfterViewInit {
       name: this.newCpForm.value.name,
       email: this.newCpForm.value.email,
       username: this.newCpForm.value.username,
-      password: this.newCpForm.value.password
+      password: this.newCpForm.value.password,
+      //role will be cp by default
+      role: 'ROLE_CP'
     };
 
     this.cpManagementService.createCpLogin(payload).subscribe({
@@ -93,7 +95,7 @@ export class CpManagementComponent implements AfterViewInit {
   simulateCpLogin(cp: CpLogin): void {
   this.cpManagementService.login(cp.username, cp.password).subscribe({
     next: (res) => {
-      localStorage.setItem('cpUser', JSON.stringify(res.data));
+      sessionStorage.setItem('cpUser', JSON.stringify(res.data));
       this.router.navigate(['cp/dashboard']);
     },
     error: () => {

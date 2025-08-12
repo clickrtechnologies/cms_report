@@ -56,7 +56,15 @@ export class MnoManagementComponent implements AfterViewInit {
       return;
     }
 
-    const payload = this.newMnoForm.value;
+    const payload = {
+      name: this.newMnoForm.value.name,
+      email: this.newMnoForm.value.email,
+      username: this.newMnoForm.value.username,
+      password: this.newMnoForm.value.password,
+      telco: this.newMnoForm.value.telco,
+      //role will be mno by default
+      role: 'ROLE_MNO'
+    };
     this.mnoManagementService.createMnoLogin(payload).subscribe({
       next: (response: any) => {
         alert('MNO Login created successfully!');
@@ -74,7 +82,7 @@ export class MnoManagementComponent implements AfterViewInit {
   mnoLoginAs(mno: MnoLogin): void {
     this.mnoManagementService.login(mno.username, mno.password).subscribe({
       next: (res) => {
-        localStorage.setItem('mnoUser', JSON.stringify(res.data));
+        sessionStorage.setItem('mnoUser', JSON.stringify(res.data));
         this.router.navigate(['/mno/dashboard']);
       },
       error: () => {

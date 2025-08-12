@@ -9,16 +9,17 @@ import { environment } from 'src/environments/environment';
 })
 export class MnoManagementService {
  private apiUrl = environment.apiUrl+'mnologin';
+  private apiUrl2 = environment.apiUrl+'userlogin';
             
        constructor(private http: HttpClient) {}
 
   getMnoLogins(): Observable<MnoLogin[]> {
-    return this.http.get<MnoLogin[]>(`${this.apiUrl}/getlist`);
+    return this.http.get<MnoLogin[]>(`${this.apiUrl2}/getmnologins`);
   }
 
   createMnoLogin(payload: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, payload);
-  }
+  return this.http.post(`${this.apiUrl2}/create`, payload);
+}
 
   login(username: string, password: string): Observable<any> {
     const payload = { username, password };

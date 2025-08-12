@@ -17,7 +17,7 @@ export class ProfileComponent {
 
   saveChanges() {
     this.editMode = false;
-    localStorage.setItem('userProfile', JSON.stringify(this.user));
+    sessionStorage.setItem('userProfile', JSON.stringify(this.user));
     alert('Profile updated successfully');
   }
 }

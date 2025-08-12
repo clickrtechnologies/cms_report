@@ -1,6 +1,77 @@
-    .dataTables_wrapper {
-        padding-top: 20px;
-    }
-    table.dataTable thead th {
-        white-space: nowrap;
-    }
+/* Table container */
+.content-upload-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: white;
+}
+
+.content-upload-table thead th {
+  background: linear-gradient(90deg, #343a40, #495057);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 12px;
+}
+
+.content-upload-table tbody td {
+  vertical-align: middle;
+}
+
+/* Header styling */
+.content-header {
+  font-weight: 600;
+  font-size: 1.4rem;
+  border-left: 5px solid #17a2b8;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+/* Buttons */
+.btn-custom {
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-group-sm .btn {
+  font-size: 0.8rem;
+}
+
+/* Row hover */
+.content-upload-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* File input */
+input[type="file"] {
+  padding: 3px;
+  font-size: 0.85rem;
+}
+
+/* === PLAYING STATE ANIMATIONS === */
+
+/* Row animation when playing */
+.playing-row {
+  background-color: #e9f7ef !important;
+  animation: highlightFade 1.5s ease forwards;
+}
+
+@keyframes highlightFade {
+  0% { background-color: #d4edda; }
+  100% { background-color: transparent; }
+}
+
+/* Pulsing play icon when playing */
+.playing-row .bi-play-circle-fill {
+  color: #28a745;
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}

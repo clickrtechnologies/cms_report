@@ -56,7 +56,15 @@ export class ArtistManagementComponent implements AfterViewInit {
       return;
     }
 
-    const payload = this.newArtistForm.value;
+    const payload = {
+      name: this.newArtistForm.value.name,
+      email: this.newArtistForm.value.email,
+      username: this.newArtistForm.value.username,
+      password: this.newArtistForm.value.password,
+      cpName: this.newArtistForm.value.cpName,
+      //role will be artist by default
+      role: 'ROLE_ARTIST'
+    };
     this.artistManagementService.createArtistLogin(payload).subscribe({
       next: (response: any) => {
         alert('Artist Login created successfully!');
@@ -74,7 +82,7 @@ export class ArtistManagementComponent implements AfterViewInit {
   artistLoginAs(ar: ArtistLogin): void {
     this.artistManagementService.login(ar.username, ar.password).subscribe({
       next: (res) => {
-        localStorage.setItem('artistUser', JSON.stringify(res.data));
+        sessionStorage.setItem('artistUser', JSON.stringify(res.data));
         this.router.navigate(['/artist/dashboard']);
       },
       error: () => {

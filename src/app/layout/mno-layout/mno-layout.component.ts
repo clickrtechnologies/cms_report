@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class MnoLayoutComponent {
   constructor(private router: Router) {}
   ngOnInit(): void {
-    if (!localStorage.getItem('loggedInUser')) {
+    if (!sessionStorage.getItem('userRole')) {
       this.router.navigate(['/home']);
     }
   }

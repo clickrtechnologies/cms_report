@@ -8,16 +8,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ArtistManagementService {
-  private apiUrl = environment.apiUrl+'artistlogin';
+  private apiUrl = environment.apiUrl+'cplogin';
+  private apiUrl2 = environment.apiUrl+'userlogin';
            
       constructor(private http: HttpClient) {}
 
   getArtistLogins(): Observable<ArtistLogin[]> {
-    return this.http.get<ArtistLogin[]>(`${this.apiUrl}/getlist`);
+    return this.http.get<ArtistLogin[]>(`${this.apiUrl2}/getartistlogins`);
   }
 
   createArtistLogin(payload: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/create`, payload);
+  return this.http.post(`${this.apiUrl2}/create`, payload);
 }
 
   login(username: string, password: string): Observable<any> {

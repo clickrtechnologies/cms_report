@@ -6,19 +6,19 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService) {}
 
   login() {
-    if (!this.username || !this.password) {
-      this.errorMessage = 'Username and password are required';
+    if (!this.email || !this.password) {
+      this.errorMessage = 'Email and password are required';
       return;
     }
 
-    this.authService.login(this.username, this.password).subscribe({
+    this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         this.errorMessage = '';
         // success redirect logic handled inside auth service

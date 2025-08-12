@@ -16,25 +16,29 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user: User | null = this.AuthService.getLoggedInUser();
-
-    if (user) {
-      switch (user.role) {
-        case 'admin':
-          this.router.navigate(['/admin/dashboard']);
-          break;
-        case 'cp':
-          this.router.navigate(['/cp/dashboard']);
-          break;
-        case 'artist':
-          this.router.navigate(['/artist/dashboard']);
-          break;
-        case 'mno':
-          this.router.navigate(['/mno/dashboard']);
-          break;
-        default:
-          this.router.navigate(['/login']);
-      }
-    }
-  }
+  // const user: User | null = this.AuthService.getLoggedInUser();
+  // if (user) {
+  //   let targetRoute = '';
+  //   switch (user.role) {
+  //     case 'ROLE_ADMIN':
+  //     case 'ROLE_SUPER_ADMIN':
+  //       targetRoute = '/admin/dashboard';
+  //       break;
+  //     case 'ROLE_CP':
+  //       targetRoute = '/cp/dashboard';
+  //       break;
+  //     case 'ROLE_ARTIST':
+  //       targetRoute = '/artist/dashboard';
+  //       break;
+  //     case 'ROLE_MNO':
+  //       targetRoute = '/mno/dashboard';
+  //       break;
+  //     default:
+  //       targetRoute = '/login';
+  //   }
+  //   if (this.router.url !== targetRoute) {
+  //     this.router.navigate([targetRoute]);
+  //   }
+  // }
+}
 }

@@ -16,22 +16,22 @@ const routes: Routes = [
   {
     path: 'cp',
     loadChildren: () => import('./cp/cp.module').then(m => m.CpModule),
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'artist',
     loadChildren: () => import('./artist/artist.module').then(m => m.ArtistModule),
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'mno',
     loadChildren: () => import('./mno/mno.module').then(m => m.MnoModule),
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canLoad: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ];
 

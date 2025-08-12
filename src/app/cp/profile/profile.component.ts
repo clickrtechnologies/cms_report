@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const storedUser = localStorage.getItem('loggedInUser');
+    const storedUser = sessionStorage.getItem('loggedInUser');
     if (!storedUser) {
       this.router.navigate(['/']);
     } else {
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
 
   saveChanges() {
     this.editMode = false;
-    localStorage.setItem('loggedInUser', JSON.stringify(this.cp));
+    sessionStorage.setItem('loggedInUser', JSON.stringify(this.cp));
     alert('CP Profile updated successfully');
   }
 }

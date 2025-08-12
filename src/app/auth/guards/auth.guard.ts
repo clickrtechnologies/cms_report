@@ -1,38 +1,37 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanLoad,
-  Route,
-  UrlSegment,
-  UrlTree,
-  Router
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanLoad, Route, UrlSegment } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-
   constructor(private router: Router) {}
 
-  private isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('accessToken');
+  private hasAccess(routePath: string): boolean {
+    const role = sessionStorage.getItem('userRole');
+    if (!role) return false;
+    if (role === 'ROLE_SUPER_ADMIN') return true;
+    if (routePath.startsWith('admin') && role === 'ROLE_ADMIN') return true;
+    if (routePath.startsWith('cp') && role === 'ROLE_CP') return true;
+    if (routePath.startsWith('artist') && role === 'ROLE_ARTIST') return true;
+    if (routePath.startsWith('mno') && role === 'ROLE_MNO') return true;
+    return false;
   }
 
-  canActivate(): boolean | UrlTree {
-    if (this.isLoggedIn()) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const routePath = route.routeConfig?.path || '';
+    if (this.hasAccess(routePath)) {
       return true;
     }
-    // Redirect to home if not logged in
-    return this.router.parseUrl('/home');
+    this.router.navigate(['/home']);
+    return false;
   }
 
-  canLoad(): boolean {
-    if (this.isLoggedIn()) {
+  canLoad(route: Route, segments: UrlSegment[]): boolean {
+    const routePath = route.path || '';
+    if (this.hasAccess(routePath)) {
       return true;
     }
-    // Redirect won't work here, so just return false to prevent loading
     this.router.navigate(['/home']);
     return false;
   }

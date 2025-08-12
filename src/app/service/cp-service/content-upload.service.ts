@@ -15,4 +15,24 @@ export class ContentUploadService {
   getUploads(): Observable<ContentUpload[]> {
     return this.http.get<ContentUpload[]>(`${this.apiUrl}/getlist`);
   }
+
+ saveContent(songData: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/cpcontentsong`, songData);
+}
+
+
+  getAllSongContent(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/getSongContent`);
+}
+
+uploadAudio(formData: FormData) {
+  return this.http.post<{ url: string }>(`${this.apiUrl}/audio/upload`, formData);
+}
+
+deleteContentById(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`);
+  }
+
+
+
 }
