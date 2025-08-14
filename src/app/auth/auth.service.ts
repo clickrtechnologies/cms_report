@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 
 export interface AuthResponse {
+  id: string;
   accessToken: string;
   role: string;
   username: string;
@@ -31,6 +32,7 @@ export class AuthService {
   tap((response) => {
     sessionStorage.setItem(this.tokenKey, response.accessToken);
     sessionStorage.setItem(this.roleKey, response.role);
+    sessionStorage.setItem('id', response.id)
     this.navigateToDashboard(response.role);
   })
 );

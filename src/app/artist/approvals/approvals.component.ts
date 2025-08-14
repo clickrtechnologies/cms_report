@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ArtistApproval } from 'src/app/models/artist-models/artist-approval.model';
 import { ApprovalService } from 'src/app/service/artist-service/artist-approval.service';
 
@@ -7,65 +8,120 @@ import { ApprovalService } from 'src/app/service/artist-service/artist-approval.
   templateUrl: './approvals.component.html',
   styleUrls: ['./approvals.component.css']
 })
-export class ApprovalsComponent {
-  // approvals = [
-  //   {
-  //     id: 1,
-  //     artist: 'Arijit Singh',
-  //     album: 'Soulful Tunes',
-  //     songName: 'Raabta',
-  //     songFile: 'assets/audio/raabta.mp3',
-  //     genre: 'Romantic',
-  //     uploadDate: '2025-07-01',
-  //     cp: 'Alex Music',
-  //     fromDate: '2025-07-01',
-  //     toDate: '2025-12-31',
-  //     country: 'India',
-  //     mno: 'Airtel',
-  //     approved: null,
-  //     songCode: '',
-  //     qrUrl: ''
-  //   }
-  // ];
+export class ApprovalsComponent implements OnInit {
 
-  approvals: ArtistApproval[] = [];
+  approvals: (ArtistApproval & { controls: FormGroup })[] = [];
+  artistList: any;
+  mnoLogins: any;
 
-  constructor(private approvalService: ApprovalService) {
-      this.getApprovals();
+  constructor(private approvalService: ApprovalService,  private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    const artistId = Number(sessionStorage.getItem('id'));
+    if (artistId) {
+      this.getArtistSongContent(artistId);
     }
+    this.getArtistLoginList();
+    this.getMnoLoginList();
+  }
 
-  // Method to fetch approvals from the service
-  getApprovals(): void {
-    this.approvalService.getApprovals().subscribe({
-      next: (response: any) => {
-        this.approvals = Array.isArray(response.data) ? response.data : [];
-      },
-      error: (err) => {
-        console.error('Failed to fetch approvals:', err);
+  // Fetch songs for this artist (un approved only)
+  getArtistSongContent(artistId: number): void {
+  this.approvalService.getArtistContent(artistId).subscribe({
+    next: (response: any) => {
+      console.log('Response from getArtistContent:', response);
+
+      if (Array.isArray(response.data)) {
+        console.log('Data is an array:', response.data);
+
+        // ✅ Only keep songs approved by the artist
+        const approvedSongs = response.data.filter((item: any) => item.approvedByArtist === false);
+
+        this.approvals = approvedSongs.map((item: any) => {
+          const song = {
+            id: item.id || null,
+            artist: item.artist?.name || item.artistName || '',
+            album: item.albumName || '',
+            songName: item.songName || '',
+            genre: item.genre || '',
+            uploadDate: item.uploadDate?.split("T")[0] || '',
+            cp: item.cpName || '',
+            fromDate: item.fromDate?.split("T")[0] || '',
+            toDate: item.toDate?.split("T")[0] || '',
+            country: item.country || '',
+            mno: item.mno?.name || item.mno || '',
+            approved: item.approvedByArtist ?? null,
+            songCode: item.songCode || '',
+            qrUrl: item.qrUrl || '',
+            licensedCountry: item.licensedCountry || '',
+          };
+
+          return {
+            ...song,
+            controls: this.fb.group({
+              approved: new FormControl(song.approved)
+            })
+          };
+        });
+      } else {
         this.approvals = [];
+      }
+    },
+    error: () => {
+      this.approvals = [];
+    }
+  });
+}
+
+
+  getArtistLoginList(): void {
+    this.approvalService.getArtistLogins().subscribe({
+      next: (response: any) => {
+        this.artistList = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch artist logins:', err);
+        this.artistList = [];
+      }
+    });
+  }
+  
+
+  getMnoLoginList(): void {
+    this.approvalService.getMnoLogins().subscribe({
+      next: (response: any) => {
+        this.mnoLogins = Array.isArray(response.data) ? response.data : [];
+      },
+      error: (err: any) => {
+        console.error('Failed to fetch MNO logins:', err);
+        this.mnoLogins = [];
       }
     });
   }
 
-  approveSong(song: any) {
-    if (song.approved === null) {
-      song.approved = true;
-      song.songCode = this.generateSongCode(song.cp, song.id);
-      song.qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${song.songCode}&size=60x60`;
 
-      alert(`✅ Song "${song.songName}" approved. Notification sent to MNO, artist & KAM.`);
-    }
+
+  // Save approval
+  saveApproval(index: number): void {
+    const song = this.approvals[index];
+    const approved = song.controls?.get('approved')?.value;
+
+    const requestDTO = {
+      id: song.id,
+      approvedByArtist: approved
+    };
+
+    this.approvalService.approveSong(requestDTO).subscribe({
+      next: () => {
+        alert('Approval saved successfully!');
+        song.approved = approved; // update local value
+        this.getArtistSongContent(Number(sessionStorage.getItem('id'))); // refresh the list
+      },
+      error: (err: any) => {
+        console.error('Failed to save approval', err);
+        alert('Failed to save approval.');
+      }
+    });
   }
 
-  rejectSong(song: any) {
-    if (song.approved === null) {
-      song.approved = false;
-      alert(`❌ Song "${song.songName}" has been disapproved.`);
-    }
-  }
-
-  generateSongCode(cp: string, id: number): string {
-    const prefix = cp.split(' ')[0].substring(0, 3).toUpperCase();
-    return `${prefix}-${String(id).padStart(3, '0')}`;
-  }
 }

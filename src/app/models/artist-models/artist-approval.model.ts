@@ -11,7 +11,10 @@ export interface ArtistApproval {
   toDate: string;
   country: string;
   mno: string;
-  approved: boolean | null;
+  approved: boolean;
   songCode: string;
   qrUrl: string;
+  audioFileUrl?: string;
+  artistId: number; // Optional Artist ID for the approval
+  mnoId: number; // Optional MNO ID for the approval
 }

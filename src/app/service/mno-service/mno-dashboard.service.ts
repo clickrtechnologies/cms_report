@@ -12,8 +12,8 @@ export class MnoDashboardService {
     
       constructor(private http: HttpClient) {}
 
-  getMnoSongs(): Observable<MnoSong[]> {
-    return this.http.get<MnoSong[]>(`${this.apiUrl}/getlistrecord`);
+  // getMnoSongs(): Observable<MnoSong[]> {
+  //   return this.http.get<MnoSong[]>(`${this.apiUrl}/getlistrecord`);
     
-  }
+  // }
 }

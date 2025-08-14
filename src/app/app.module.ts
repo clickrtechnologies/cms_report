@@ -20,6 +20,7 @@ import { HomeRouteModule } from './home/home-routing-module';
 import { LoginComponent } from './auth/login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
     AdminLayoutComponent,
     HomeComponent,
     HomeLayoutComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,10 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
     MnoRoutingModule,
     HomeRouteModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
+    
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

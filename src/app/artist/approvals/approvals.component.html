@@ -29,7 +29,7 @@
           <td>{{ song.album }}</td>
           <td>{{ song.songName }}</td>
           <td>
-            <audio [src]="song.songFile" controls preload="none" style="width: 120px;"></audio>
+            <audio [src]="song.songFile || song.audioFileUrl" controls preload="none" style="width: 120px;"></audio>
           </td>
           <td>{{ song.genre }}</td>
           <td>{{ song.uploadDate }}</td>
@@ -45,16 +45,18 @@
             </a>
           </td>
           <td>
-            <ng-container *ngIf="song.approved === null">
-              <button class="btn btn-sm btn-success me-1" (click)="approveSong(song)">Approve</button>
-              <button class="btn btn-sm btn-danger" (click)="rejectSong(song)">Reject</button>
-            </ng-container>
-            <span *ngIf="song.approved === true" class="badge bg-success">Approved</span>
-            <span *ngIf="song.approved === false" class="badge bg-danger">Rejected</span>
+            <!-- Wrap select in a form -->
+            <form [formGroup]="song.controls">
+              <select class="form-select form-select-sm" formControlName="approved">
+                <option [ngValue]="true">Approve</option>
+                <option [ngValue]="false">Reject</option>
+              </select>
+              <button class="btn btn-sm btn-success mt-1" (click)="saveApproval(i)">Save</button>
+            </form>
           </td>
         </tr>
+
       </tbody>
     </table>
   </div>
 </div>
-

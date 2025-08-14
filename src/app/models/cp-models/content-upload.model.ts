@@ -12,4 +12,6 @@ export interface ContentUpload {
   mno: string;
   audioFile: File | null;
   audioFileUrl?: string; // URL of the uploaded audio file
+  mnoId: number; // Optional MNO ID for the upload
+  artistId: number; // Optional Artist ID for the upload
 }

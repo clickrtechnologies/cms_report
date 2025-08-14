@@ -1,4 +1,5 @@
 export interface ArtistSong {
+  id?: number;
   artistName: string;
   albumName: string;
   songName: string;
@@ -11,4 +12,5 @@ export interface ArtistSong {
   licensedCountry: string;
   licensedMno: string;
   approved: boolean;
+  fileAudioUrl?: string;
 }

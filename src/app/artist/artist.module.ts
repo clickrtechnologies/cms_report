@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 
@@ -24,6 +24,7 @@ import { SettingComponent } from './setting/setting.component';
     FormsModule,
     CommonModule,
     ArtistRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ArtistModule { }

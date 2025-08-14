@@ -5,7 +5,7 @@ import { MnoRoutingModule } from './mno-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ApprovalsComponent } from './approvals/approvals.component';
 import { ReportsComponent } from './reports/reports.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -21,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     CommonModule,
     MnoRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })

@@ -6,7 +6,7 @@ import { ContentUploadComponent } from './content-upload/content-upload.componen
 import { NameRbtComponent } from './name-rbt/name-rbt.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ContractsComponent } from './contracts/contracts.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 
@@ -23,7 +23,8 @@ import { SettingComponent } from './setting/setting.component';
   imports: [
     CommonModule,
     FormsModule,
-    CpRoutingModule
+    CpRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class CpModule {}

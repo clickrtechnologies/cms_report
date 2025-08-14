@@ -21,29 +21,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let song of mnoSongs; let i = index">
+        <tr *ngFor="let song of approvals; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ song.artistName }}</td>
-          <td>{{ song.albumName }}</td>
+          <td>{{ song.artist }}</td>
+          <td>{{ song.album }}</td>
           <td>{{ song.songName }}</td>
           <td>{{ song.songCode || '-' }}</td>
           <td>
-            <a *ngIf="song.qrCodeUrl" [href]="song.qrCodeUrl" target="_blank">
-              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + song.qrCodeUrl + '&size=60x60'" alt="QR Code" />
+            <a *ngIf="song.qrUrl" [href]="song.qrUrl" target="_blank">
+              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + song.qrUrl + '&size=60x60'" alt="QR Code" />
             </a>
-            <span *ngIf="!song.qrCodeUrl">--</span>
+            <span *ngIf="!song.qrUrl">--</span>
           </td>
-          <td>{{ song.category }}</td>
+          <td>{{ song.genre }}</td>
           <td>{{ song.uploadDate }}</td>
-          <td>{{ song.cpName }}</td>
+          <td>{{ song.cp }}</td>
           <td>{{ song.country }}</td>
-          <td>{{ song.mnoName }}</td>
+          <td>{{ song.mno }}</td>
           <td>
-            <span *ngIf="song.contractAvailable" class="badge bg-success">Available</span>
-            <span *ngIf="!song.contractAvailable" class="badge bg-secondary">Pending</span>
+            <span *ngIf="song.contractFileUrl" class="badge bg-success">Available</span>
+            <span *ngIf="!song.contractFileUrl" class="badge bg-secondary">Pending</span>
           </td>
           <td>
-            <audio *ngIf="song.audioUrl" [src]="song.audioUrl" controls preload="none" style="width: 120px;"></audio>
+            <audio *ngIf="song.audioFileUrl" [src]="song.audioFileUrl" controls preload="none" style="width: 120px;"></audio>
           </td>
         </tr>
       </tbody>

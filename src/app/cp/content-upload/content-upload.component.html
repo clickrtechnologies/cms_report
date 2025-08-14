@@ -1,7 +1,7 @@
-<div class="container mt-4">
+<form [formGroup]="form" class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="content-header">Content Upload - CP</h4>
-    <button class="btn btn-info btn-custom" (click)="addContent()">
+    <button type="button" class="btn btn-info btn-custom" (click)="addContent()">
       <i class="bi bi-plus-circle"></i> Add Content
     </button>
   </div>
@@ -23,53 +23,90 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let song of uploads; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.artistName" [readonly]="!song.isEditing" /></td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.albumName" [readonly]="!song.isEditing" /></td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.songName" [readonly]="!song.isEditing" /></td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.genre" [readonly]="!song.isEditing" /></td>
-          <td>
-  <input 
-    type="date" 
-    class="form-control form-control-sm" 
-    [(ngModel)]="song.uploadDate" 
-    [readonly]="!song.isEditing" 
-  />
-</td>
 
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.cpName" [readonly]="!song.isEditing" /></td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.country" [readonly]="!song.isEditing" /></td>
-          <td><input type="text" class="form-control form-control-sm" [(ngModel)]="song.mno" [readonly]="!song.isEditing" /></td>
+      <tbody formArrayName="uploads">
+        <tr *ngFor="let grp of uploads.controls; let i = index" [formGroupName]="i">
+          <td>{{ i + 1 }}</td>
+
+          <!-- Artist -->
+          <td>
+            <select class="form-control form-control-sm"
+                    formControlName="artistId"
+                    (change)="onArtistChange(i)">
+              <option value="">-- Select Artist --</option>
+              <option *ngFor="let artist of artistList" [value]="artist.id">
+                {{ artist.artistName }}
+              </option>
+            </select>
+          </td>
+
+          <td>
+            <input type="text" class="form-control form-control-sm" formControlName="albumName" />
+          </td>
+
+          <td>
+            <input type="text" class="form-control form-control-sm" formControlName="songName" />
+          </td>
+
+          <td>
+            <input type="text" class="form-control form-control-sm" formControlName="genre" />
+          </td>
+
+          <td>
+            <input type="date" class="form-control form-control-sm" formControlName="uploadDate" />
+          </td>
+
+          <td>
+            <input type="text" class="form-control form-control-sm" formControlName="cpName" />
+          </td>
+
+          <td>
+            <input type="text" class="form-control form-control-sm" formControlName="country" />
+          </td>
+
+          <!-- MNO -->
+          <td>
+            <select class="form-control form-control-sm"
+                    formControlName="mnoId"
+                    (change)="onMnoChange(i)">
+              <option value="">-- Select MNO --</option>
+              <option *ngFor="let mno of mnoList" [value]="mno.id">
+                {{ mno.name }}
+              </option>
+            </select>
+          </td>
+
+          <!-- File -->
           <td>
             <div>
-    <!-- File input for uploading -->
-    <input type="file"
-           accept="audio/*"
-           class="form-control form-control-sm"
-           (change)="onFileChange($event, i)"
-           [disabled]="!song.isEditing" />
+              <input type="file"
+                     accept="audio/*"
+                     class="form-control form-control-sm"
+                     (change)="onFileChange($event, i)"
+                     [disabled]="!isEditing[i]" />
 
-    <!-- Audio player (hidden unless there's a URL) -->
-    <audio *ngIf="song.audioFileUrl"
-           [id]="'audio-player-' + i"
-           [src]="song.audioFileUrl">
-    </audio>
-  </div>  
+              <audio *ngIf="uploads.at(i).get('audioFileUrl')?.value"
+                     [id]="'audio-player-' + i"
+                     [src]="uploads.at(i).get('audioFileUrl')?.value">
+              </audio>
+            </div>
           </td>
+
           <td>
             <div class="btn-group btn-group-sm" role="group">
-              <button *ngIf="song.isEditing" class="btn btn-success btn-custom" (click)="saveContent(i)">
+              <button *ngIf="isEditing[i]" type="button" class="btn btn-success btn-custom" (click)="saveContent(i)">
                 <i class="bi bi-check-circle"></i> Save
               </button>
-              <button *ngIf="!song.isEditing" class="btn btn-primary btn-custom" (click)="editContent(i)">
+
+              <button *ngIf="!isEditing[i]" type="button" class="btn btn-primary btn-custom" (click)="editContent(i)">
                 <i class="bi bi-pencil-square"></i> Edit
               </button>
-              <button class="btn btn-danger btn-custom" (click)="deleteContent(i)">
+
+              <button type="button" class="btn btn-danger btn-custom" (click)="deleteContent(i)">
                 <i class="bi bi-trash"></i> Delete
               </button>
-              <button class="btn btn-secondary btn-custom" (click)="playAudio(i)">
+
+              <button type="button" class="btn btn-secondary btn-custom" (click)="playAudio(i)">
                 <i class="bi bi-play-circle"></i> Play
               </button>
             </div>
@@ -78,4 +115,4 @@
       </tbody>
     </table>
   </div>
-</div>
+</form>

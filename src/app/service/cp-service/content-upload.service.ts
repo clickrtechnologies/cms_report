@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ContentUpload } from 'src/app/models/cp-models/content-upload.model';
 import { environment } from 'src/environments/environment';
+import { ArtistLogin } from 'src/app/models/admin-models/artist-login.model';
+import { MnoLogin } from 'src/app/models/admin-models/mno-login.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContentUploadService {
   private apiUrl = environment.apiUrl + 'contentuploadcontroller';
+  private apiUrl2 = environment.apiUrl+'userlogin';
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +35,14 @@ uploadAudio(formData: FormData) {
 deleteContentById(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete/${id}`);
   }
+  
+  getArtistNames(): Observable<any> {
+   return this.http.get<ArtistLogin[]>(`${this.apiUrl2}/getartistlogins`);
+}
+
+getMnoList(): Observable<any> {
+   return this.http.get<MnoLogin[]>(`${this.apiUrl2}/getmnologins`);
+}
 
 
 

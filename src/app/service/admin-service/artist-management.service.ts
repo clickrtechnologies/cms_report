@@ -19,7 +19,7 @@ export class ArtistManagementService {
 
   createArtistLogin(payload: any): Observable<any> {
   return this.http.post(`${this.apiUrl2}/create`, payload);
-}
+    }
 
   login(username: string, password: string): Observable<any> {
       const payload = { username, password };

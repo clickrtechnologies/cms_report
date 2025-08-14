@@ -83,6 +83,7 @@ export class ArtistManagementComponent implements AfterViewInit {
     this.artistManagementService.login(ar.username, ar.password).subscribe({
       next: (res) => {
         sessionStorage.setItem('artistUser', JSON.stringify(res.data));
+        sessionStorage.setItem('id', res.data.id);
         this.router.navigate(['/artist/dashboard']);
       },
       error: () => {

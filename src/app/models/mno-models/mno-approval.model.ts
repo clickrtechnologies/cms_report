@@ -1,16 +1,21 @@
 export interface MnoApproval {
-  artistName: string;
-  albumName: string;
+  id: number;
+  artist: string;
+  album: string;
   songName: string;
   songCode: string;
-  qrCodeUrl: string;
+  qrUrl: string;
   genre: string;
-  cpName: string;
+  cp: string;
   country: string;
   mno: string;
-  contractFile: File;
+  contractFileUrl: string;
   expiryDate: string;
-  audioUrl: string;
-  approved: boolean;
+  audioFileUrl: string;
+  approvedByMno: boolean ;
   rejectionReason: string;
+  uploadDate?: string;
+  fromDate?: string;
+  toDate?: string;
+  licensedCountry?: string;
 }

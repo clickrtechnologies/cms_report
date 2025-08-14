@@ -2,7 +2,7 @@
   <h4 class="mb-3">MNO Approval List</h4>
 
   <div class="table-responsive" style="overflow-x: auto;">
-    <table class="table table-bordered table-striped align-middle text-center w-100" id="approvalTable" style="min-width: 1300px;">
+    <table class="table table-bordered table-striped align-middle text-center w-100" style="min-width: 1300px;">
       <thead class="table-dark">
         <tr>
           <th>S.No.</th>
@@ -18,46 +18,53 @@
           <th>Contract</th>
           <th>Expiry</th>
           <th>Audio</th>
-          <th colspan="2">Approve</th>
+          <th >Approve</th>
           <th>Rejection Reason</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of approvalList; let i = index">
+        <tr *ngFor="let song of approvals; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ item.artistName }}</td>
-          <td>{{ item.albumName }}</td>
-          <td>{{ item.songName }}</td>
-          <td>{{ item.songCode }}</td>
+          <td>{{ song.artist }}</td>
+          <td>{{ song.album }}</td>
+          <td>{{ song.songName }}</td>
+          <td>{{ song.songCode }}</td>
           <td>
-            <a [href]="item.qrCodeUrl" target="_blank">
-              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + item.qrCodeUrl + '&size=60x60'" alt="QR Code" />
+            <a [href]="song.qrUrl" target="_blank">
+              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + song.qrUrl + '&size=60x60'" alt="QR Code" />
             </a>
           </td>
-          <td>{{ item.genre }}</td>
-          <td>{{ item.cpName }}</td>
-          <td>{{ item.country }}</td>
-          <td>{{ item.mno }}</td>
+          <td>{{ song.genre }}</td>
+          <td>{{ song.cp }}</td>
+          <td>{{ song.country }}</td>
+          <td>{{ song.mno }}</td>
           <td>
-            <button class="btn btn-sm btn-outline-primary" (click)="downloadContract(item.contractFile)">Download</button>
+            <a *ngIf="song.contractFileUrl" [href]="song.contractFileUrl" download>Download</a>
           </td>
-          <td>{{ item.expiryDate }}</td>
+          <td>{{ song.expiryDate }}</td>
           <td>
-            <audio *ngIf="item.audioUrl" [src]="item.audioUrl" controls preload="none" style="width: 100px;"></audio>
-          </td>
-          <td>
-            <input type="radio" [checked]="item.approved" name="approve{{i}}" />
+            <audio *ngIf="song.audioFileUrl" [src]="song.audioFileUrl" controls preload="none" style="width: 100px;"></audio>
           </td>
           <td>
-            <input type="radio" [checked]="!item.approved" name="approve{{i}}" />
+            <form [formGroup]="song.controls">
+              <select class="form-select form-select-sm" formControlName="approved">
+                <option [ngValue]=true>Approve</option>
+                <option [ngValue]=false>Reject</option>
+              </select>
+              <!-- <button class="btn btn-sm btn-success mt-1" (click)="saveApproval(i)">Save</button> -->
+            </form>
           </td>
           <td>
             <input
               type="text"
               class="form-control form-control-sm"
-              [disabled]="item.approved"
-              [(ngModel)]="item.rejectionReason"
+              [disabled]="song.controls.get('approved')?.value"
+              [(ngModel)]="song.rejectionReason"
               placeholder="Reason if rejected" />
+          </td>
+          <td>
+            <button class="btn btn-sm btn-success" (click)="saveApproval(i)">Save</button>
           </td>
         </tr>
       </tbody>
