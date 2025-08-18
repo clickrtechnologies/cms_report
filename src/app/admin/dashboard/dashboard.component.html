@@ -29,28 +29,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows">
-          <td>{{ row.sno }}</td>
+        <tr *ngFor="let row of dashboardData; let i = index">
+          <td>{{ i+1 }}</td>
           <td>{{ row.artistName }}</td>
           <td>{{ row.albumName }}</td>
           <td>{{ row.songName }}</td>
           <td>{{ row.songCode }}</td>
-          <td>{{ row.qrCode }}</td>
+          <td>{{ row.qrCodeUrl }}</td>
           <td>{{ row.genre }}</td>
           <td>{{ row.cpName }}</td>
-          <td>{{ row.licensedCountry }}</td>
-          <td>{{ row.licensedMno }}</td>
+          <td>{{ row.country }}</td>
+          <td>{{ row.mno }}</td>
           <td>
-            <a [href]="row.contractPdf" download class="btn btn-sm btn-outline-primary">Download</a>
+            <a [href]="row.contractFileUrl" download class="btn btn-sm btn-outline-primary">Download</a>
           </td>
-          <td>{{ row.contractExpiry }}</td>
+         <td>{{ row.expiryDate ? (row.expiryDate | date:'dd-MM-yyyy') : '-' }}</td>
+
           <td>
-            <audio *ngIf="row.audioFile" [src]="row.audioFile" controls preload="none" style="width: 120px;"></audio>
+            <audio *ngIf="row.audioFileUrl" [src]="row.audioFile" controls preload="none" style="width: 120px;"></audio>
           </td>
-          <td><input type="radio" [checked]="row.approvalArtist" disabled /></td>
-          <td><input type="radio" [checked]="!row.approvalArtist" disabled /></td>
-          <td><input type="radio" [checked]="row.approvalMno" disabled /></td>
-          <td><input type="radio" [checked]="!row.approvalMno" disabled /></td>
+          <td><input type="radio" [checked]="row.approvedByArtist" disabled /></td>
+          <td><input type="radio" [checked]="!row.approvedByArtist" disabled /></td>
+          <td><input type="radio" [checked]="row.approvedByMno" disabled /></td>
+          <td><input type="radio" [checked]="!row.approvedByMno" disabled /></td>
         </tr>
       </tbody>
     </table>

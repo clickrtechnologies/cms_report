@@ -8,6 +8,7 @@ import { ContractsComponent } from './contracts/contracts.component';
 import { AdminLayoutComponent } from '../layout/admin-layout/admin-layout.component';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,14 @@ const routes: Routes = [
     component: ArtistLayoutComponent,
     children : [
       {path : '',redirectTo: 'dashboard', pathMatch: 'full'},
-      {path : 'dashboard', component:DashboardComponent},
+      {path : 'dashboard', component:DashboardComponent },
       {path : 'approvals', component : ApprovalsComponent},
       {path : 'reports', component : ReportsComponent},
       {path : 'contracts', component : ContractsComponent},
       {path : 'setting', component : SettingComponent},
-      {path : 'profile', component : ProfileComponent}
+      {path : 'profile', component : ProfileComponent},
+      { path: 'verify/:token', component: VerifyTokenComponent }
+
     
     ],
   },

@@ -9,6 +9,7 @@ import { ContractsComponent } from './contracts/contracts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
+import { VerifyTokenComponent } from './verify-token/verify-token.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SettingComponent } from './setting/setting.component';
     ReportsComponent,
     ContractsComponent,
     ProfileComponent,
-    SettingComponent
+    SettingComponent,
+    VerifyTokenComponent
   ],
   imports: [
     FormsModule,

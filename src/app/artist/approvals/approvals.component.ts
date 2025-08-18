@@ -17,6 +17,7 @@ export class ApprovalsComponent implements OnInit {
   constructor(private approvalService: ApprovalService,  private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    console.log('ApprovalsComponent initialized');
     const artistId = Number(sessionStorage.getItem('id'));
     if (artistId) {
       this.getArtistSongContent(artistId);

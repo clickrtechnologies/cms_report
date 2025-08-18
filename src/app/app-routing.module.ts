@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'artist',
     loadChildren: () => import('./artist/artist.module').then(m => m.ArtistModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'mno',

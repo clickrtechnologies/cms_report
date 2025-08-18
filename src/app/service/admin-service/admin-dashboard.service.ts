@@ -1,11 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AdminReportRow } from 'src/app/models/admin-models/admin-report-row.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminDashboardService {
-  constructor() {}
+
+  private apiUrl2 = environment.apiUrl+'userlogin';
+  
+  constructor(private http: HttpClient) {}
+
+  getAdminDashboard(): Observable<any []> {
+        return this.http.get<any []>(`${this.apiUrl2}/getadmindashboard`);
+      }
 
   getAdminReports(): AdminReportRow[] {
     return [
