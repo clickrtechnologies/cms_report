@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { VerifyTokenComponent } from './artist/verify-token/verify-token.component';
+import { VerifyTokenMnoComponent } from './mno/verify-token-mno/verify-token-mno.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,10 +20,13 @@ const routes: Routes = [
     loadChildren: () => import('./cp/cp.module').then(m => m.CpModule),
     canActivate: [AuthGuard]
   },
+
+  { path: 'artist/verify/:token', component: VerifyTokenComponent }, // public
+  { path: 'mno/verify/:token', component: VerifyTokenMnoComponent }, // public
   {
     path: 'artist',
     loadChildren: () => import('./artist/artist.module').then(m => m.ArtistModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'mno',

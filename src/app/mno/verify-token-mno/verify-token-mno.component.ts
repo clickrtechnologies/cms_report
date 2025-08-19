@@ -1,29 +1,31 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-verify-token',
-  templateUrl: './verify-token.component.html',
-  styleUrls: ['./verify-token.component.css']
+  selector: 'app-verify-token-mno',
+  templateUrl: './verify-token-mno.component.html',
+  styleUrls: ['./verify-token-mno.component.css']
 })
-export class VerifyTokenComponent implements OnInit {
+export class VerifyTokenMnoComponent {
+
   constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private router: Router
-  ) {}
+      private route: ActivatedRoute,
+      private http: HttpClient,
+      private router: Router
+    ) {}
+  
+    ngOnInit(): void {
+      this.verifyTokenForMno();
+    }
 
-  ngOnInit(): void {
-    this.verifyToken();
-  }
 
-  verifyToken(): void {
+  verifyTokenForMno(): void {
     const token = this.route.snapshot.paramMap.get('token');
    console.log('Token received:', token);
 
 
-    this.http.get<any>(`http://localhost:8084/token/verify/${token}`)
+    this.http.get<any>(`http://localhost:8084/token/mno/verify/${token}`)
   .subscribe({
     next: (res) => {
       // Save token in sessionStorage/localStorage
@@ -32,7 +34,7 @@ export class VerifyTokenComponent implements OnInit {
       sessionStorage.setItem("userRole", res.role);
 
       // Redirect to approval page
-      this.router.navigate(['/artist/approvals']);
+      this.router.navigate(['/mno/approvals']);
 
     },
     error: () => {
@@ -41,4 +43,5 @@ export class VerifyTokenComponent implements OnInit {
       }
   });
 }
+
 }

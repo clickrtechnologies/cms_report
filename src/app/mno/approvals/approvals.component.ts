@@ -36,7 +36,7 @@ export class ApprovalsComponent {
         
         if (Array.isArray(response.data)) {
           console.log('Data is an array:', response.data);
-          const approvedSongs = response.data.filter((item: any) => (item.approvedByMno === false  ) && item.approvedByArtist === true);
+          const approvedSongs = response.data.filter((item: any) => (item.approvedByMno === false  ) && item.approvedByArtist === true && item.rejectionReason === "" );
           console.log('Approved songs:', approvedSongs);
           this.approvals = approvedSongs.map((item: any) => {
             const song: MnoApproval = {

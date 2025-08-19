@@ -8,6 +8,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VerifyTokenMnoComponent } from './verify-token-mno/verify-token-mno.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
     ApprovalsComponent,
     ReportsComponent,
     SettingComponent,
-    ProfileComponent
+    ProfileComponent,
+    VerifyTokenMnoComponent
   ],
   imports: [
     CommonModule,

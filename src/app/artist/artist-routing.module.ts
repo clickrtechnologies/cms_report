@@ -16,14 +16,12 @@ const routes: Routes = [
     component: ArtistLayoutComponent,
     children : [
       {path : '',redirectTo: 'dashboard', pathMatch: 'full'},
-      {path : 'dashboard', component:DashboardComponent },
+      {path : 'dashboard', component:DashboardComponent},
       {path : 'approvals', component : ApprovalsComponent},
       {path : 'reports', component : ReportsComponent},
       {path : 'contracts', component : ContractsComponent},
       {path : 'setting', component : SettingComponent},
-      {path : 'profile', component : ProfileComponent},
-      { path: 'verify/:token', component: VerifyTokenComponent }
-
+      {path : 'profile', component : ProfileComponent}
     
     ],
   },

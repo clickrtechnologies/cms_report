@@ -23,9 +23,8 @@ export class ContentUploadService {
   return this.http.post(`${this.apiUrl}/cpcontentsong`, songData);
 }
 
-
-  getAllSongContent(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/getSongContent`);
+  getAllSongContent(id: any): Observable<any> {
+  return this.http.get(`${this.apiUrl}/getSongContent/${id}`);
 }
 
 uploadAudio(formData: FormData) {

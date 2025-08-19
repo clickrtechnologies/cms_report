@@ -9,10 +9,22 @@ import { environment } from 'src/environments/environment';
 })
 export class ContractService {
   private apiUrl = environment.apiUrl + 'contract';
+  private apiUrl1 = environment.apiUrl + 'contentuploadcontroller';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getContracts(): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.apiUrl}/getlist`);
+  getContracts(id: any): Observable<any> {
+  return this.http.get(`${this.apiUrl1}/getSongContent/${id}`);
+}
+
+
+  saveContract(songData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/cpcontentsong`, songData);
   }
+
+  uploadContract(formData: FormData) {
+    return this.http.post<{ url: string }>(`${this.apiUrl}/audio/upload`, formData);
+  }
+
+
 }

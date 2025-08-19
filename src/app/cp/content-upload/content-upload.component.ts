@@ -160,7 +160,12 @@ export class ContentUploadComponent {
   }
 
   getAllSongcontent(): void {
-    this.contentUploadService.getAllSongContent().subscribe({
+    const id = sessionStorage.getItem('id');
+    if (!id) {
+      console.error('No ID found in sessionStorage');
+      return;
+    }
+    this.contentUploadService.getAllSongContent(id).subscribe({
       next: (response: any) => {
         // reset array
         this.uploads.clear();
