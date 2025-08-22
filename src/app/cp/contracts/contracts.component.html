@@ -29,10 +29,25 @@
             <td>{{ contract.get('cpName')?.value }}</td>
             <td>{{ contract.get('licensedCountry')?.value }}</td>
             <td>{{ contract.get('licensedMNO')?.value }}</td>
+            <!-- <td>{{contracts.get('fromDate')?.value  }}</td> -->
 
-            <td><input type="date" formControlName="fromDate" class="form-control"></td>
-            <td><input type="date" formControlName="toDate" class="form-control"></td>
-            <td><input type="date" formControlName="expiryDate" class="form-control"></td>
+            <td>
+              <!-- <input type="date" formControlName="fromDate" class="form-control" /> -->
+              <input type="date" class="form-control form-control-sm" formControlName="fromDate" />
+            </td>
+
+            <td>
+              <!-- <input type="date" formControlName="toDate" class="form-control" /> -->
+              <input type="date" class="form-control form-control-sm" formControlName="toDate" />
+            </td>
+
+            <td>
+              <!-- <input type="date" formControlName="expiryDate" class="form-control" /> -->
+               <input type="date" class="form-control form-control-sm" formControlName="expiryDate" />
+            </td>
+
+
+
 
             <td>
               <input type="file" (change)="onFileUpload($event, i)" class="form-control" />

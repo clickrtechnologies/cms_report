@@ -191,6 +191,7 @@ export class ContentUploadComponent {
           this.uploads.push(row);
           this.isEditing.push(false);
           this.setRowEnabled(this.uploads.length - 1, false);
+          console.log('Added content row:', normalized);
         });
       },
       error: () => {

@@ -19,11 +19,11 @@ export class ContractService {
 
 
   saveContract(songData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/cpcontentsong`, songData);
+    return this.http.post(`${this.apiUrl1}/cpcontractdetails`, songData);
   }
 
   uploadContract(formData: FormData) {
-    return this.http.post<{ url: string }>(`${this.apiUrl}/audio/upload`, formData);
+    return this.http.post<{ url: string }>(`${this.apiUrl1}/contract/upload`, formData);
   }
 
 

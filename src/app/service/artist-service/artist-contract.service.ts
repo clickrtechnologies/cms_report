@@ -12,10 +12,11 @@ import { environment } from 'src/environments/environment';
 export class ArtistContractService {
 
   private apiUrl = environment.apiUrl + 'artistcontract';
+   private apiUrl1 = environment.apiUrl + 'artistapprovalcontroller';
          
     constructor(private http: HttpClient) {}
 
-  getContracts(): Observable<ArtistContract[]> {
-    return this.http.get<ArtistContract[]>(`${this.apiUrl}/getlist`);
+  getContracts(artistId: any): Observable<any[]> {
+     return this.http.get<any[]>(`${this.apiUrl1}/getartistsongcontent/${artistId}`);
   }
 }

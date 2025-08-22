@@ -1,9 +1,9 @@
 <div class="container-fluid mt-4">
   <h4 class="mb-3">Contracts</h4>
 
-  <div class="table-responsive">
+  <div class="table-responsive" [formGroup]="form">
     <table class="table table-bordered table-striped align-middle text-center">
-      <thead class="table-dark">
+      <thead>
         <tr>
           <th>S.No.</th>
           <th>Date</th>
@@ -15,33 +15,32 @@
           <th>CP Name</th>
           <th>Action (Download/Upload)</th>
         </tr>
-        <tr>
+        <tr class="sub-header">
           <th colspan="6"></th>
           <th>From</th>
           <th>To</th>
           <th colspan="2"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let contract of contractList; let i = index">
+
+      <!-- 👇 This now works because it's inside [formGroup]="form" -->
+      <tbody formArrayName="contracts">
+        <tr *ngFor="let contract of contracts.controls; let i = index" [formGroupName]="i">
           <td>{{ i + 1 }}</td>
-          <td>{{ contract.date }}</td>
-          <td>{{ contract.artistName }}</td>
-          <td>{{ contract.albumName }}</td>
-          <td>{{ contract.songName }}</td>
-          <td>{{ contract.genre }}</td>
-          <td>{{ contract.fromDate }}</td>
-          <td>{{ contract.toDate }}</td>
-          <td>{{ contract.cpName }}</td>
+          <td>{{ contract.get('fromDate')?.value }}</td>
+          <td>{{ contract.get('artistName')?.value }}</td>
+          <td>{{ contract.get('albumName')?.value }}</td>
+          <td>{{ contract.get('songName')?.value }}</td>
+          <td>{{ contract.get('genre')?.value }}</td>
+          <td>{{ contract.get('fromDate')?.value }}</td>
+          <td>{{ contract.get('toDate')?.value }}</td>
+          <td>{{ contract.get('cpName')?.value }}</td>
           <td>
-            <div *ngIf="contract.contractFile; else uploadBlock">
-              <button class="btn btn-sm btn-primary" (click)="downloadContract(i)">
+            <ng-container *ngIf="contract.get('contractFileUrl')?.value;">
+              <button class="btn btn-sm btn-primary" (click)="downloadContract(contract.value)">
                 Download
               </button>
-            </div>
-            <ng-template #uploadBlock>
-              <input type="file" (change)="onFileUpload($event, i)" />
-            </ng-template>
+            </ng-container>
           </td>
         </tr>
       </tbody>
