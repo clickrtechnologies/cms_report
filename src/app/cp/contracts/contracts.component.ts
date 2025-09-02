@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Contract } from 'src/app/models/cp-models/contract.model';
+import * as JSZip from 'jszip';
+import * as XLSX from 'xlsx';
 import { ContractService } from 'src/app/service/cp-service/contract.service';
 
 @Component({
@@ -11,6 +11,14 @@ import { ContractService } from 'src/app/service/cp-service/contract.service';
 })
 export class ContractsComponent {
 
+  isEditing: boolean[] = [];
+
+  excelRowCount = 0;
+
+  uploadedFiles: File[] = [];
+
+  excelFile: File | null = null;
+  contractFiles: File[] = [];
 
   form = this.fb.group({
     contracts: this.fb.array<FormGroup>([])
@@ -20,7 +28,6 @@ export class ContractsComponent {
     return this.form.get('contracts') as FormArray<FormGroup>;
   }
 
-  isEditing: boolean[] = [];
 
   constructor(private fb: FormBuilder, private contractService: ContractService) {
     this.getContractList();
@@ -120,32 +127,41 @@ export class ContractsComponent {
 
 
   saveContract(i: number) {
-    const grp = this.contracts.at(i);
-    if (!grp) return;
+  const grp = this.contracts.at(i) as FormGroup;
+  if (!grp) return;
 
-    const v = grp.getRawValue();
+  const v = grp.getRawValue();
 
-    const payload = {
-      id: v.id,
-      fromDate: this.formatDate(v.fromDate),
-      toDate: this.formatDate(v.toDate),
-      expiryDate: this.formatDate(v.expiryDate),
-      contractFileUrl: v.contractFileUrl
-    };
+  const payload = {
+  id: v.id,
+  fromDate: this.formatDateTime(v.fromDate),   // "2025-08-01T00:00:00"
+  toDate: this.formatDateTime(v.toDate),
+  expiryDate: this.formatDateTime(v.expiryDate),
+  contractFileUrl: v.contractFileUrl
+};
 
-    this.contractService.saveContract(payload).subscribe({
-      next: () => {
-        alert('Contract updated successfully!');
-        this.isEditing[i] = false;
-        this.setRowEnabled(i, false);
-        this.getContractList(); // refresh
-      },
-      error: () => {
-        console.error('Failed to update contract: ' + JSON.stringify(payload));
-        alert('Failed to update contract');
-      }
-    });
-  }
+
+  this.contractService.saveContract(payload).subscribe({
+    next: () => {
+      alert('Contract updated successfully!');
+      this.isEditing[i] = false;
+      this.setRowEnabled(i, false);
+      this.getContractList();
+    },
+    error: (err) => {
+      console.error('Failed to update contract:', err);
+      alert('Failed to update contract');
+    }
+  });
+}
+
+formatDateTime(date: any): string | null {
+  if (!date) return null;
+  const d = new Date(date);
+  return d.toISOString().split('.')[0]; // "2025-08-01T00:00:00"
+}
+
+
 
   onFileUpload(event: Event, i: number) {
     const input = event.target as HTMLInputElement;
@@ -166,6 +182,76 @@ export class ContractsComponent {
     }
   }
 
+  // Parse Excel
+  onExcelUpload(event: any) {
+  this.excelFile = event.target.files[0];
+  console.log('Selected Excel:', this.excelFile);
+
+  // Read Excel to count rows
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+    this.excelRowCount = jsonData.length;
+    console.log('Excel row count:', this.excelRowCount);
+  };
+  if (this.excelFile) {
+    reader.readAsArrayBuffer(this.excelFile);
+  }
+}
+
+
+  // Capture multiple contract files
+onContractFilesSelected(event: any) {
+  this.contractFiles = Array.from(event.target.files);
+  console.log('Selected files:', this.contractFiles);
+}
+
+  // Upload Excel + Contracts Zip
+  async uploadAll() {
+  if (!this.excelFile) {
+    alert('Please upload the Excel file first.');
+    return;
+  }
+
+  if (!this.contractFiles.length) {
+    alert('Please select contract files.');
+    return;
+  }
+
+  // Validation: Excel rows vs Contract files
+  if (this.contractFiles.length !== this.excelRowCount) {
+    alert(`Number of contract files (${this.contractFiles.length}) does not match number of rows in Excel (${this.excelRowCount}).`);
+    return;
+  }
+
+  // Zip contract files
+  const zip = new JSZip();
+  this.contractFiles.forEach(file => zip.file(file.name, file));
+  const blob = await zip.generateAsync({ type: 'blob' });
+
+  // FormData
+  const formData = new FormData();
+  formData.append('contractExcelFile', this.excelFile);
+  formData.append('contractsZip', blob, 'contracts.zip');
+
+  // Call service
+  this.contractService.uploadBulkContracts(formData).subscribe({
+    next: () => {
+      alert('Contracts uploaded successfully!');
+      this.contractFiles = [];
+      this.excelFile = null;
+      this.excelRowCount = 0;
+    },
+    error: (err) => {
+      console.error('Upload failed:', err);
+      alert('Failed to upload contracts.');
+    }
+  });
+}
 
 
 

@@ -12,10 +12,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ApprovalService {
 
- private apiUrl = environment.apiUrl + 'artistapprovalcontroller';
- private apiUrl2 = environment.apiUrl+'userlogin';
-       
-  constructor(private http: HttpClient) {}
+  private apiUrl = environment.apiUrl + 'artistapprovalcontroller';
+  private apiUrl2 = environment.apiUrl + 'userlogin';
+
+  constructor(private http: HttpClient) { }
 
   getApprovals(): Observable<ArtistApproval[]> {
     return this.http.get<ArtistApproval[]>(`${this.apiUrl}/getlist`);
@@ -32,15 +32,20 @@ export class ApprovalService {
   }
 
   getArtistLogins(): Observable<ArtistLogin[]> {
-      return this.http.get<ArtistLogin[]>(`${this.apiUrl2}/getartistlogins`);
-    }
+    return this.http.get<ArtistLogin[]>(`${this.apiUrl2}/getartistlogins`);
+  }
 
-    getMnoLogins(): Observable<MnoLogin[]> {
-        return this.http.get<MnoLogin[]>(`${this.apiUrl2}/getmnologins`);
-      }
+  getMnoLogins(): Observable<MnoLogin[]> {
+    return this.http.get<MnoLogin[]>(`${this.apiUrl2}/getmnologins`);
+  }
+
+  approveSongsBulk(requests: { id: number, approvedByArtist: boolean }[]) {
+    return this.http.post(`${this.apiUrl}/approve/bulk`, requests);
+  }
 
 
-      
+
+
 
 
 }

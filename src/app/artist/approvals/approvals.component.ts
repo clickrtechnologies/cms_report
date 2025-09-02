@@ -124,5 +124,24 @@ export class ApprovalsComponent implements OnInit {
       }
     });
   }
+  
+  saveAllApprovals(): void {
+  const bulkRequest = this.approvals.map(song => ({
+    id: song.id,
+    approvedByArtist: song.approved
+  }));
+
+  this.approvalService.approveSongsBulk(bulkRequest).subscribe({
+    next: () => {
+      alert('All approvals saved successfully!');
+      this.getArtistSongContent(Number(sessionStorage.getItem('id')));
+    },
+    error: (err) => {
+      console.error('Failed to save approvals', err);
+      alert('Failed to save approvals.');
+    }
+  });
+}
+
 
 }

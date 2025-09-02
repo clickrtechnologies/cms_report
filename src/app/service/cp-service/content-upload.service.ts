@@ -43,6 +43,13 @@ getMnoList(): Observable<any> {
    return this.http.get<MnoLogin[]>(`${this.apiUrl2}/getmnologins`);
 }
 
+uploadBulk(formData: FormData) {
+  return this.http.post<{ url: string }>(`${this.apiUrl}/bulk`, formData);
+}
+
+
+
+
 
 
 }

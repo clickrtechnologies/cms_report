@@ -1,11 +1,11 @@
 <div class="container-fluid mt-4">
-  <h4 class="mb-3">MNO Approval List</h4>
+  <h3 class="mb-4">MNO Approval List</h3>
 
-  <div class="table-responsive" style="overflow-x: auto;">
-    <table class="table table-bordered table-striped align-middle text-center w-100" style="min-width: 1300px;">
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle text-center w-100" style="min-width: 1300px;">
       <thead class="table-dark">
         <tr>
-          <th>S.No.</th>
+          <th>#</th>
           <th>Artist</th>
           <th>Album</th>
           <th>Song</th>
@@ -18,21 +18,26 @@
           <th>Contract</th>
           <th>Expiry</th>
           <th>Audio</th>
-          <th >Approve</th>
+          <th>Decision</th>
           <th>Rejection Reason</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let song of approvals; let i = index">
+        <tr *ngFor="let song of approvals; let i = index" [ngClass]="{
+        'table-success': song.controls.get('approved')?.value === true,
+        'table-danger': song.controls.get('approved')?.value === false
+      }">
           <td>{{ i + 1 }}</td>
           <td>{{ song.artist }}</td>
           <td>{{ song.album }}</td>
-          <td>{{ song.songName }}</td>
+          <td class="text-truncate" style="max-width: 150px;" title="{{song.songName}}">
+            {{ song.songName }}
+          </td>
           <td>{{ song.songCode }}</td>
           <td>
             <a [href]="song.qrUrl" target="_blank">
-              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + song.qrUrl + '&size=60x60'" alt="QR Code" />
+              <img [src]="'https://api.qrserver.com/v1/create-qr-code/?data=' + song.qrUrl + '&size=60x60'"
+                alt="QR Code" />
             </a>
           </td>
           <td>{{ song.genre }}</td>
@@ -44,30 +49,35 @@
           </td>
           <td>{{ song.expiryDate }}</td>
           <td>
-            <audio *ngIf="song.audioFileUrl" [src]="song.audioFileUrl" controls preload="none" style="width: 100px;"></audio>
+            <audio *ngIf="song.audioFileUrl" [src]="song.audioFileUrl" controls preload="none"
+              style="width: 100px;"></audio>
           </td>
           <td>
-            <form [formGroup]="song.controls">
-              <select class="form-select form-select-sm" formControlName="approved">
-                <option [ngValue]=true>Approve</option>
-                <option [ngValue]=false>Reject</option>
-              </select>
-              <!-- <button class="btn btn-sm btn-success mt-1" (click)="saveApproval(i)">Save</button> -->
+            <form [formGroup]="song.controls" class="d-flex justify-content-center gap-2">
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" formControlName="approved" [value]="true"
+                  id="approve-{{i}}">
+                <label class="form-check-label" for="approve-{{i}}">Approve</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" formControlName="approved" [value]="false"
+                  id="reject-{{i}}">
+                <label class="form-check-label" for="reject-{{i}}">Reject</label>
+              </div>
             </form>
           </td>
           <td>
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              [disabled]="song.controls.get('approved')?.value"
-              [(ngModel)]="song.rejectionReason"
-              placeholder="Reason if rejected" />
-          </td>
-          <td>
-            <button class="btn btn-sm btn-success" (click)="saveApproval(i)">Save</button>
+            <input type="text" class="form-control form-control-sm" [disabled]="song.controls.get('approved')?.value"
+              [(ngModel)]="song.rejectionReason" placeholder="Reason if rejected" />
           </td>
         </tr>
       </tbody>
+
     </table>
+  </div>
+
+  <!-- Save All Button -->
+  <div class="mt-3 text-end">
+    <button class="btn btn-success" (click)="saveAllApprovals()">Save All</button>
   </div>
 </div>

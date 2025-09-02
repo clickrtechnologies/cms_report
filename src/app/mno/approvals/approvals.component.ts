@@ -127,6 +127,33 @@ export class ApprovalsComponent {
       }
     });
   }
+
+  saveAllApprovals(): void {
+  if (this.approvals.length === 0) {
+    alert('No records to save.');
+    return;
+  }
+
+  const requests = this.approvals.map(song => {
+    const approved = song.controls.get('approved')?.value;
+    return {
+      id: song.id,
+      approvedByMno: approved,
+      rejectionReason: approved ? '' : song.rejectionReason || 'Rejected by MNO'
+    };
+  });
+
+  this.mnoApprovalService.bulkApproveSongs(requests).subscribe({
+    next: () => {
+      alert('All approvals saved successfully!');
+      this.getMnoSongContent(Number(sessionStorage.getItem('id')));
+    },
+    error: (err:any) => {
+      console.error('Failed to save approvals:', err);
+      alert('Failed to save approvals.');
+    }
+  });
+}
 }
 
 

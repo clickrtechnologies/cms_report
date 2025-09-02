@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ContentUploadService } from '../../service/cp-service/content-upload.service';
+import * as JSZip from 'jszip';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-content-upload',
@@ -8,6 +10,9 @@ import { ContentUploadService } from '../../service/cp-service/content-upload.se
   styleUrls: ['./content-upload.component.css']
 })
 export class ContentUploadComponent {
+  onBulkFileChange($event: Event) {
+    throw new Error('Method not implemented.');
+  }
   form = this.fb.group({
     uploads: this.fb.array<FormGroup>([])
   });
@@ -21,6 +26,9 @@ export class ContentUploadComponent {
 
   artistList: Array<{ id: number; artistName: string }> = [];
   mnoList: Array<{ id: number; name: string }> = [];
+
+  excelFile: File | null = null;
+  audioFiles: File[] = [];
 
   constructor(
     private contentUploadService: ContentUploadService,
@@ -55,8 +63,8 @@ export class ContentUploadComponent {
 
     // Keep audioFileUrl readable; toggle others
     const toToggle = [
-      'artistId','albumName','songName','genre','uploadDate',
-      'cpName','country','mnoId'
+      'artistId', 'albumName', 'songName', 'genre', 'uploadDate',
+      'cpName', 'country', 'mnoId'
     ];
     toToggle.forEach(ctrlName => {
       const ctrl = grp.get(ctrlName);
@@ -278,4 +286,74 @@ export class ContentUploadComponent {
     grp.get('mnoName')!.setValue(mno?.name ?? '');
     console.log('MNO id :', mnoId, '->', mno?.name);
   }
+
+  onExcelChange(event: any) {
+    this.excelFile = event.target.files[0];
+  }
+
+  onAudioFilesChange(event: any) {
+    this.audioFiles = Array.from(event.target.files);
+  }
+
+  async readExcel(file: File): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const workbook = XLSX.read(e.target.result, { type: 'binary' });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(sheet);
+      resolve(rows); // array of objects
+    };
+    reader.onerror = err => reject(err);
+    reader.readAsBinaryString(file);
+  });
+}
+
+  async uploadBulk() {
+  if (!this.excelFile || this.audioFiles.length === 0) {
+    alert("Please upload Excel and Audio files!");
+    return;
+  }
+
+  if(!this.excelFile.name.endsWith('.xlsx') && !this.excelFile.name.endsWith('.xls')) {
+    alert("Please upload a valid Excel file (.xlsx or .xls)!");
+    return;
+  }
+
+  // Parse Excel to get number of rows
+  const data = await this.readExcel(this.excelFile); // implement readExcel to return array of rows
+
+  if (this.audioFiles.length !== data.length) {
+    alert("Number of audio files must match number of entries in Excel!");
+    return;
+  }
+
+
+
+  const zip = new JSZip();
+  this.audioFiles.forEach(file => {
+    zip.file(file.name, file);
+  });
+
+  // Generate zip blob
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  const formData = new FormData();
+  formData.append("excelFile", this.excelFile);
+  formData.append("audioZip", zipBlob, "audioFiles.zip");
+
+  // Send to backend
+  this.contentUploadService.uploadBulk(formData).subscribe({
+    next: (res: any) => {
+      console.log("Upload success", res);
+      window.alert("✅ Bulk upload successful!");
+      this.getAllSongcontent(); // refresh list
+    },
+    error: (err: any) => {
+      console.error("Upload error", err);
+      window.alert("❌ Bulk upload failed. Please try again.");
+    }
+  });
+}
+
 }

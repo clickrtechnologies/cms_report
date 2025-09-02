@@ -24,4 +24,9 @@ export class MnoApprovalService {
     approveSong(approval: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/approve`, approval);
   }
+
+  bulkApproveSongs(requests: any[]) {
+  return this.http.post(`${this.apiUrl}/mnobulkapprove`, requests);
+  }
+
 }

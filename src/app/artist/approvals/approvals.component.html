@@ -1,10 +1,12 @@
 <div class="container mt-4">
+
   <h4 class="mb-3">Artist Approvals</h4>
 
   <div class="table-responsive">
     <table class="table table-bordered align-middle text-center table-hover">
       <thead class="table-dark">
         <tr>
+          <th>Approve/Reject</th>
           <th>S.No</th>
           <th>Artist</th>
           <th>Album</th>
@@ -19,11 +21,24 @@
           <th>MNO</th>
           <th>Song Code</th>
           <th>QR</th>
-          <th>Approved</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let song of approvals; let i = index">
+        <tr *ngFor="let song of approvals; let i = index" 
+            [ngClass]="{
+              'table-success': song.approved === true,
+              'table-danger': song.approved === false
+            }">
+          <td>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="approval{{i}}" [value]="true" [(ngModel)]="song.approved" id="approve{{i}}">
+              <label class="form-check-label" for="approve{{i}}">Approve</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="approval{{i}}" [value]="false" [(ngModel)]="song.approved" id="reject{{i}}">
+              <label class="form-check-label" for="reject{{i}}">Reject</label>
+            </div>
+          </td>
           <td>{{ i + 1 }}</td>
           <td>{{ song.artist }}</td>
           <td>{{ song.album }}</td>
@@ -44,19 +59,12 @@
               <img [src]="song.qrUrl" alt="QR" width="50">
             </a>
           </td>
-          <td>
-            <!-- Wrap select in a form -->
-            <form [formGroup]="song.controls">
-              <select class="form-select form-select-sm" formControlName="approved">
-                <option [ngValue]="true">Approve</option>
-                <option [ngValue]="false">Reject</option>
-              </select>
-              <button class="btn btn-sm btn-success mt-1" (click)="saveApproval(i)">Save</button>
-            </form>
-          </td>
         </tr>
-
       </tbody>
     </table>
+  </div>
+
+  <div class="text-end mt-3">
+    <button class="btn btn-success" (click)="saveAllApprovals()">Save All</button>
   </div>
 </div>
